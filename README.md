@@ -29,3 +29,12 @@ Time spent: `<Number of hours spent>`
 ### Walkthrough
 
 ![Video Walkthrough](...)
+
+Credits
+---------
+* [Twitter API](https://apps.twitter.com/)
+* [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
+* [AFNetworking](https://github.com/AFNetworking/AFNetworking)
+* [BDBOAuth1Manager](https://github.com/bdbergeron/BDBOAuth1Manager)
+* [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
+* [LiceCap](http://www.cockos.com/licecap/)

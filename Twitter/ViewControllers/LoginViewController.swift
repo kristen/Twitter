@@ -28,8 +28,13 @@ class LoginViewController: UIViewController {
     @IBAction func onLogin(sender: AnyObject) {
 
         client.requestSerializer.removeAccessToken()
-        client.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "http://kristen.github.io/"), scope: nil, success: { (requestToken) -> Void in
-            println("got the request token")
+        client.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "cptwitterdemo://oauth"), scope: nil, success: { (requestToken) -> Void in
+            println("got the request token!")
+            
+            let authURL = NSURL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")
+            UIApplication.sharedApplication().openURL(authURL!)
+            
+            
         }) { (error) -> Void in
             println("Failed to get the request token!")
         }
