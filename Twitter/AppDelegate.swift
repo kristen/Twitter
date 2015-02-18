@@ -54,17 +54,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
             
-            TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (operation, responseObject) -> Void in
-                println("current user: \(User(dictionary: responseObject as NSDictionary).name)")
+            TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (operation, response) -> Void in
+                println("current user: \(User(dictionary: response as NSDictionary).name)")
             }, failure: { (operation, error) -> Void in
                 println("failed to get the current user!")
             })
             
-            TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (operation, responseObject) -> Void in
-                println(responseObject)
+            TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (operation, response) -> Void in
+                println(response)
 
                 
-                let tweets = Tweet.tweets(responseObject as [NSDictionary])
+                let tweets = Tweet.tweetsWithArray(response as [NSDictionary])
+                for tweet in tweets {
+                    println("Tweet text: \(tweet.text), at: \(tweet.createdAt)")
+                }
                 
                 
                 }, failure: { (operation, error) -> Void in
