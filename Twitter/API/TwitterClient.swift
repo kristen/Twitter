@@ -25,6 +25,22 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         return Singleton.instance
     }
     
+    func homeTimelineWithParams(params: [String: String]?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation, response) -> Void in
+            println(response)
+            
+            let tweets = Tweet.tweetsWithArray(response as [NSDictionary])
+            for tweet in tweets {
+                println("Tweet text: \(tweet.text), at: \(tweet.createdAt)")
+            }
+            completion(tweets: tweets, error: nil)
+            
+        }, failure: { (operation, error) -> Void in
+            println("failed to get the current user!")
+            completion(tweets: nil, error: error)
+        })
+    }
+    
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
         

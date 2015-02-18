@@ -9,18 +9,22 @@
 import UIKit
 
 class TweetsViewController: UIViewController {
+    var tweets: [Tweet]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweetsOptional, error) -> () in
+            if let tweets = tweetsOptional {
+                self.tweets = tweets
+            } else {
+                println("error loading tweets")
+                self.tweets = []
+            }
+        })
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     @IBAction func onLogout(sender: AnyObject) {
         User.currentUser?.logout()
     }
