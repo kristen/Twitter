@@ -1,14 +1,14 @@
 //
-//  LoginViewController.swift
+//  TweetsViewController.swift
 //  Twitter
 //
-//  Created by Kristen on 2/15/15.
+//  Created by Kristen on 2/17/15.
 //  Copyright (c) 2015 Kristen Sundquist. All rights reserved.
 //
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class TweetsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,18 +21,8 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onLogin(sender: AnyObject) {
-        
-        TwitterClient.sharedInstance.loginWithCompletion { (user, error) -> () in
-            if user != nil {
-                
-                // perform seque
-                self.presentViewController(TweetsViewController(nibName: "TweetsViewController", bundle: nil), animated: true, completion: nil)
-                
-            } else {
-                // handle login error
-            }
-        }
+    @IBAction func onLogout(sender: AnyObject) {
+        User.currentUser?.logout()
     }
 
     /*

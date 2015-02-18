@@ -18,7 +18,7 @@ class Tweet: NSObject {
         
         self.text = json["text"].stringValue
         
-        self.user = User(json: json["user"])
+        self.user = User(dictionary: dictionary["user"] as NSDictionary)
         
         let createdAtString = json["created_at"].stringValue
         
