@@ -9,15 +9,11 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    
-    var client: TwitterClient!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        client = TwitterClient()
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,8 +23,8 @@ class LoginViewController: UIViewController {
     
     @IBAction func onLogin(sender: AnyObject) {
 
-        client.requestSerializer.removeAccessToken()
-        client.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "cptwitterdemo://oauth"), scope: nil, success: { (requestToken) -> Void in
+        TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
+        TwitterClient.sharedInstance.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "cptwitterdemo://oauth"), scope: nil, success: { (requestToken) -> Void in
             println("got the request token!")
             
             let authURL = NSURL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")

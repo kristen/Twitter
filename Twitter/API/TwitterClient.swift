@@ -8,32 +8,20 @@
 
 import UIKit
 
+let kTwitterConsumerKey = "g5eGUNtmGb07a0Ozxhbih9FjJ"
+let kTwitterConsumerSecret = "l4jtKchHoF1pTpJzVHh1AaTH0UdhuEc6UKzHov6JHrkKLe4zCN"
+let kTwitterBaseUrl = NSURL(string: "https://api.twitter.com")
+
 class TwitterClient: BDBOAuth1RequestOperationManager {
-    
-    let kTwitterConsumerKey = "g5eGUNtmGb07a0Ozxhbih9FjJ"
-    let kTwitterConsumerSecret = "l4jtKchHoF1pTpJzVHh1AaTH0UdhuEc6UKzHov6JHrkKLe4zCN"
-    let kTwitterBaseUrl = "https://api.twitter.com"
     
     
     // http://stackoverflow.com/questions/24024549/dispatch-once-singleton-model-in-swift
-//    class var sharedInstance: TwitterClient {
-//        let kTwitterBaseUrl = "https://api.twiiter.com"
-//        let kTwitterConsumerKey = "g5eGUNtmGb07a0Ozxhbih9FjJ"
-//        let kTwitterConsumerSecret = "l4jtKchHoF1pTpJzVHh1AaTH0UdhuEc6UKzHov6JHrkKLe4zCN"
-//        
-//        struct Singleton {
-//            static let instance = TwitterClient(baseURL: NSURL(string: kTwitterBaseUrl), consumerKey: kTwitterConsumerKey, consumerSecret: kTwitterConsumerSecret)
-//        }
-//        
-//        return Singleton.instance
-//    }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override init() {
-        super.init(baseURL: NSURL(string: kTwitterBaseUrl)!, consumerKey: kTwitterConsumerKey, consumerSecret: kTwitterConsumerSecret)
+    class var sharedInstance: TwitterClient {
 
+        struct Singleton {
+            static let instance = TwitterClient(baseURL: kTwitterBaseUrl, consumerKey: kTwitterConsumerKey, consumerSecret: kTwitterConsumerSecret)
+        }
+        
+        return Singleton.instance
     }
 }

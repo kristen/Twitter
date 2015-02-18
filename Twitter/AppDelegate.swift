@@ -48,20 +48,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-        let client = TwitterClient()
-        
-        client.fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuthToken(queryString: url.query), success: { (accessToken) -> Void in
+        TwitterClient.sharedInstance.fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuthToken(queryString: url.query), success: { (accessToken) -> Void in
             
             println("got the access token")
             
-            client.requestSerializer.saveAccessToken(accessToken)
+            TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
             
-            client.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (operation, responseObject) -> Void in
-                println("current user: \(responseObject)")
+            TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (operation, responseObject) -> Void in
+                println("current user: \(User(dictionary: responseObject as NSDictionary).name)")
             }, failure: { (operation, error) -> Void in
                 println("failed to get the current user!")
             })
             
+            TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (operation, responseObject) -> Void in
+                println(responseObject)
+
+                
+                let tweets = Tweet.tweets(responseObject as [NSDictionary])
+                
+                
+                }, failure: { (operation, error) -> Void in
+                    println("failed to get the current user!")
+            })
             
             
         }) { (error) -> Void in
