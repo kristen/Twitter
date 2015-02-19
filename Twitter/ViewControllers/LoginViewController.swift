@@ -14,6 +14,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        navigationItem.title = "Login"
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,10 +29,11 @@ class LoginViewController: UIViewController {
             if user != nil {
                 
                 // perform seque
-                self.presentViewController(TweetsViewController(nibName: "TweetsViewController", bundle: nil), animated: true, completion: nil)
+                self.presentViewController(UINavigationController(rootViewController: TweetsViewController(nibName: "TweetsViewController", bundle: nil)), animated: true, completion: nil)
                 
             } else {
                 // handle login error
+                println("error logging in user")
             }
         }
     }

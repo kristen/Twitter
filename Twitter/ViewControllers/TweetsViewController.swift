@@ -9,34 +9,53 @@
 import UIKit
 
 class TweetsViewController: UIViewController {
-    var tweets: [Tweet]!
+    private var tweets = [Tweet]()
+    @IBOutlet private weak var tweetsTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+        
+        tweetsTableView.dataSource = self
+        
+        tweetsTableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
+        tweetsTableView.estimatedRowHeight = 95
+        tweetsTableView.rowHeight = UITableViewAutomaticDimension
+        
+        
+        navigationItem.title = "Tweets"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "onLogout")
+        
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweetsOptional, error) -> () in
             if let tweets = tweetsOptional {
                 self.tweets = tweets
+                self.tweetsTableView.reloadData()
             } else {
                 println("error loading tweets")
-                self.tweets = []
             }
         })
     }
 
-    @IBAction func onLogout(sender: AnyObject) {
+    func onLogout() {
         User.currentUser?.logout()
     }
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension TweetsViewController: UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweets.count
     }
-    */
-
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let tweetCell = tableView.dequeueReusableCellWithIdentifier("TweetCell") as TweetCell
+        
+        tweetCell.setTweet(tweets[indexPath.row])
+        
+        return tweetCell
+    }
 }

@@ -12,10 +12,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let twitterBlue = UIColor(red: 102/255.0, green: 167/255.0, blue: 229/255.0, alpha: 1.0)
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().barTintColor = twitterBlue
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         
@@ -23,7 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // go to logged in screen
             println("currentUser detected: \(User.currentUser?.name)")
             
-            window?.rootViewController = TweetsViewController(nibName: "TweetsViewController", bundle: nil)
+            window?.rootViewController = UINavigationController(rootViewController: TweetsViewController(nibName: "TweetsViewController", bundle: nil))
+        } else {
+            window?.rootViewController = UINavigationController(rootViewController: LoginViewController(nibName: "LoginViewController", bundle: nil))
         }
         
         window?.makeKeyAndVisible()
@@ -31,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func userDidLogout() {
-        window?.rootViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+        window?.rootViewController = UINavigationController(rootViewController: LoginViewController(nibName: "LoginViewController", bundle: nil))
     }
 
     func applicationWillResignActive(application: UIApplication) {

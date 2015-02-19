@@ -30,9 +30,6 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
             println(response)
             
             let tweets = Tweet.tweetsWithArray(response as [NSDictionary])
-            for tweet in tweets {
-                println("Tweet text: \(tweet.text), at: \(tweet.createdAt)")
-            }
             completion(tweets: tweets, error: nil)
             
         }, failure: { (operation, error) -> Void in

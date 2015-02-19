@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TweetsViewController" customModule="Twitter" customModuleProvider="target">
             <connections>
+                <outlet property="tweetsTableView" destination="n2Z-ZY-CKd" id="jmv-d1-o8Y"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,20 +15,17 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UOo-kD-JwI">
-                    <rect key="frame" x="275" y="285" width="49" height="30"/>
-                    <state key="normal" title="Logout">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="onLogout:" destination="-1" eventType="touchUpInside" id="bEI-bg-lZJ"/>
-                    </connections>
-                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="n2Z-ZY-CKd">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="UOo-kD-JwI" secondAttribute="centerX" id="KWq-br-Yfc"/>
-                <constraint firstAttribute="centerY" secondItem="UOo-kD-JwI" secondAttribute="centerY" id="W2F-sB-45C"/>
+                <constraint firstAttribute="bottom" secondItem="n2Z-ZY-CKd" secondAttribute="bottom" id="SbX-o3-HEa"/>
+                <constraint firstItem="n2Z-ZY-CKd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aH5-bz-aRi"/>
+                <constraint firstAttribute="trailing" secondItem="n2Z-ZY-CKd" secondAttribute="trailing" id="ixi-Yk-shv"/>
+                <constraint firstItem="n2Z-ZY-CKd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ke3-JD-ATy"/>
             </constraints>
         </view>
     </objects>
