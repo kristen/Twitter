@@ -12,6 +12,8 @@ class Tweet: NSObject {
     let text: String?
     let createdAt: NSDate?
     let user: User?
+    let retweetCount: NSNumber?
+    let favoriteCount: NSNumber?
     
     init(dictionary: NSDictionary) {
         let json = JSON(dictionary)
@@ -19,6 +21,10 @@ class Tweet: NSObject {
         self.text = json["text"].stringValue
         
         self.user = User(dictionary: dictionary["user"] as NSDictionary)
+        
+        self.retweetCount = json["retweet_count"].numberValue
+        
+        self.favoriteCount = json["favorite_count"].numberValue
         
         let createdAtString = json["created_at"].stringValue
         

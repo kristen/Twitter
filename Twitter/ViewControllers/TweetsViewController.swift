@@ -19,6 +19,7 @@ class TweetsViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         tweetsTableView.dataSource = self
+        tweetsTableView.delegate = self
         
         // UITableViewCell
         tweetsTableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
@@ -30,7 +31,7 @@ class TweetsViewController: UIViewController {
         refreshControl.addTarget(self, action: "fetchTweets", forControlEvents: UIControlEvents.ValueChanged)
         tweetsTableView.insertSubview(refreshControl, atIndex: 0)
         
-        navigationItem.title = "Tweets"
+        navigationItem.title = "Home"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "onLogout")
         
         fetchTweets()
@@ -38,6 +39,7 @@ class TweetsViewController: UIViewController {
 
     
     func fetchTweets() {
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweetsOptional, error) -> () in
             if let tweets = tweetsOptional {
                 self.tweets = tweets
@@ -46,6 +48,7 @@ class TweetsViewController: UIViewController {
             } else {
                 println("error loading tweets")
             }
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
         })
     }
     
@@ -69,5 +72,19 @@ extension TweetsViewController: UITableViewDataSource {
         tweetCell.setTweet(tweets[indexPath.row])
         
         return tweetCell
+    }
+}
+
+extension TweetsViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let detailViewController = TweetDetailViewController(nibName: "TweetDetailViewController", bundle: nil)
+        detailViewController.setTweet(tweets[indexPath.row])
+        navigationController?.pushViewController(detailViewController, animated: true)
+        
+//        presentViewController(UINavigationController(rootViewController: detailViewController), animated: true, completion: nil)
+        
+        
+//        let cell = tableView.cellForRowAtIndexPath(indexPath)
+//        cell?.selectionStyle = .None
     }
 }
