@@ -21,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hvk-ol-HsA">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hvk-ol-HsA">
                     <rect key="frame" x="82" y="65" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="TFa-KE-Lc3"/>
@@ -149,27 +149,27 @@
                     <exclude reference="fta-WW-qFE"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="SIm-LG-zeR"/>
-                    <exclude reference="jKW-Rw-o9N"/>
-                    <exclude reference="lf9-3k-eab"/>
+                    <exclude reference="2gI-QZ-Cdk"/>
+                    <exclude reference="zvr-1S-Nue"/>
+                    <exclude reference="VWr-aU-NO7"/>
+                    <exclude reference="sp2-7R-o6o"/>
+                    <exclude reference="2ue-uN-v2R"/>
                     <exclude reference="4mb-dZ-ksm"/>
                     <exclude reference="FaB-S9-l4d"/>
                     <exclude reference="T8M-7g-ync"/>
-                    <exclude reference="2ue-uN-v2R"/>
                     <exclude reference="fx7-gK-RMh"/>
                     <exclude reference="vS0-oi-p1b"/>
                     <exclude reference="eR1-7x-rnn"/>
                     <exclude reference="zMw-6w-64V"/>
+                    <exclude reference="SIm-LG-zeR"/>
+                    <exclude reference="jKW-Rw-o9N"/>
+                    <exclude reference="lf9-3k-eab"/>
                     <exclude reference="WLE-8a-fKf"/>
                     <exclude reference="WxT-a0-uqT"/>
                     <exclude reference="XZr-iH-H2r"/>
-                    <exclude reference="2gI-QZ-Cdk"/>
-                    <exclude reference="zvr-1S-Nue"/>
                     <exclude reference="9sf-Sr-4QO"/>
                     <exclude reference="a3C-WV-0Ar"/>
                     <exclude reference="v8h-8U-Vqb"/>
-                    <exclude reference="VWr-aU-NO7"/>
-                    <exclude reference="sp2-7R-o6o"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -184,27 +184,27 @@
                     <include reference="fta-WW-qFE"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="SIm-LG-zeR"/>
-                    <include reference="jKW-Rw-o9N"/>
-                    <include reference="lf9-3k-eab"/>
+                    <include reference="2gI-QZ-Cdk"/>
+                    <include reference="zvr-1S-Nue"/>
+                    <include reference="VWr-aU-NO7"/>
+                    <include reference="sp2-7R-o6o"/>
+                    <include reference="2ue-uN-v2R"/>
                     <include reference="4mb-dZ-ksm"/>
                     <include reference="FaB-S9-l4d"/>
                     <include reference="T8M-7g-ync"/>
-                    <include reference="2ue-uN-v2R"/>
                     <include reference="fx7-gK-RMh"/>
                     <include reference="vS0-oi-p1b"/>
                     <include reference="eR1-7x-rnn"/>
                     <include reference="zMw-6w-64V"/>
+                    <include reference="SIm-LG-zeR"/>
+                    <include reference="jKW-Rw-o9N"/>
+                    <include reference="lf9-3k-eab"/>
                     <include reference="WLE-8a-fKf"/>
                     <include reference="WxT-a0-uqT"/>
                     <include reference="XZr-iH-H2r"/>
-                    <include reference="2gI-QZ-Cdk"/>
-                    <include reference="zvr-1S-Nue"/>
                     <include reference="9sf-Sr-4QO"/>
                     <include reference="a3C-WV-0Ar"/>
                     <include reference="v8h-8U-Vqb"/>
-                    <include reference="VWr-aU-NO7"/>
-                    <include reference="sp2-7R-o6o"/>
                 </mask>
             </variation>
         </view>

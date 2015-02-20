@@ -33,6 +33,7 @@ class TweetsViewController: UIViewController {
         
         navigationItem.title = "Home"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "onLogout")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "New", style: .Plain, target: self, action: "composeNewTweet")
         
         fetchTweets()
     }
@@ -54,6 +55,11 @@ class TweetsViewController: UIViewController {
     
     func onLogout() {
         User.currentUser?.logout()
+    }
+    
+    func composeNewTweet() {
+        let composeTweetViewController = ComposeTweetViewController(nibName: "ComposeTweetViewController", bundle: nil)
+        navigationController?.presentViewController(UINavigationController(rootViewController: composeTweetViewController), animated: true, completion: nil)
     }
 }
 
@@ -80,10 +86,7 @@ extension TweetsViewController: UITableViewDelegate {
         let detailViewController = TweetDetailViewController(nibName: "TweetDetailViewController", bundle: nil)
         detailViewController.setTweet(tweets[indexPath.row])
         navigationController?.pushViewController(detailViewController, animated: true)
-        
-//        presentViewController(UINavigationController(rootViewController: detailViewController), animated: true, completion: nil)
-        
-        
+
 //        let cell = tableView.cellForRowAtIndexPath(indexPath)
 //        cell?.selectionStyle = .None
     }

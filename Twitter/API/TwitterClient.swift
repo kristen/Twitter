@@ -27,14 +27,23 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     
     func homeTimelineWithParams(params: [String: String]?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation, response) -> Void in
+    
+    func tweetWithParams(tweetText: String, additionalParams: [String: String] = [:], completion: (responseObject: NSDictionary?, error: NSError?) -> ()) {
+        
+        var params = ["status" : tweetText]
+        for (key, value) in additionalParams {
+            params.updateValue(value, forKey: key)
+        }
+        
+        POST("1.1/statuses/update.json", parameters: params, success: { (operation, response) -> Void in
+            println("Response from posting new tweet:")
             println(response)
             
-            let tweets = Tweet.tweetsWithArray(response as [NSDictionary])
-            completion(tweets: tweets, error: nil)
+            completion(responseObject: response as? NSDictionary, error: nil)
             
-        }, failure: { (operation, error) -> Void in
-            println("failed to get the current user!")
-            completion(tweets: nil, error: error)
+            }, failure: { (operation, error) -> Void in
+                println("failed to post the tweet!")
+                completion(responseObject: nil, error: error)
         })
     }
     

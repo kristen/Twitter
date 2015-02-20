@@ -11,6 +11,8 @@
 		BB40D36F1A91B62F0081A183 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB40D36E1A91B62F0081A183 /* AppDelegate.swift */; };
 		BB40D3761A91B62F0081A183 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB40D3751A91B62F0081A183 /* Images.xcassets */; };
 		BB40D3851A91B62F0081A183 /* TwitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB40D3841A91B62F0081A183 /* TwitterTests.swift */; };
+		BB51D7D71A97A3D9004CAAEF /* ComposeTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB51D7D51A97A3D9004CAAEF /* ComposeTweetViewController.swift */; };
+		BB51D7D81A97A3D9004CAAEF /* ComposeTweetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB51D7D61A97A3D9004CAAEF /* ComposeTweetViewController.xib */; };
 		BB52C6C41A9788070063D111 /* TweetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB52C6C21A9788070063D111 /* TweetDetailViewController.swift */; };
 		BB52C6C51A9788070063D111 /* TweetDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB52C6C31A9788070063D111 /* TweetDetailViewController.xib */; };
 		BB87ACCB1A93A2700087EE4B /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87ACCA1A93A2700087EE4B /* SwiftyJSON.swift */; };
@@ -47,6 +49,8 @@
 		BB40D37E1A91B62F0081A183 /* TwitterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwitterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB40D3831A91B62F0081A183 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB40D3841A91B62F0081A183 /* TwitterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterTests.swift; sourceTree = "<group>"; };
+		BB51D7D51A97A3D9004CAAEF /* ComposeTweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComposeTweetViewController.swift; path = ViewControllers/ComposeTweetViewController.swift; sourceTree = "<group>"; };
+		BB51D7D61A97A3D9004CAAEF /* ComposeTweetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ComposeTweetViewController.xib; path = ViewControllers/ComposeTweetViewController.xib; sourceTree = "<group>"; };
 		BB52C6C21A9788070063D111 /* TweetDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweetDetailViewController.swift; path = ViewControllers/TweetDetailViewController.swift; sourceTree = "<group>"; };
 		BB52C6C31A9788070063D111 /* TweetDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TweetDetailViewController.xib; path = ViewControllers/TweetDetailViewController.xib; sourceTree = "<group>"; };
 		BB87ACCA1A93A2700087EE4B /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 				BBBACE3F1A94539D007040B9 /* TweetsViewController.xib */,
 				BB52C6C21A9788070063D111 /* TweetDetailViewController.swift */,
 				BB52C6C31A9788070063D111 /* TweetDetailViewController.xib */,
+				BB51D7D51A97A3D9004CAAEF /* ComposeTweetViewController.swift */,
+				BB51D7D61A97A3D9004CAAEF /* ComposeTweetViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 				BB52C6C51A9788070063D111 /* TweetDetailViewController.xib in Resources */,
 				BBBACE461A9467F5007040B9 /* TweetCell.xib in Resources */,
 				BB2E548E1A93191100E87C6A /* LaunchScreen.xib in Resources */,
+				BB51D7D81A97A3D9004CAAEF /* ComposeTweetViewController.xib in Resources */,
 				BB40D3761A91B62F0081A183 /* Images.xcassets in Resources */,
 				BBB40B3A1A91B9520090433A /* LoginViewController.xib in Resources */,
 			);
@@ -339,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB51D7D71A97A3D9004CAAEF /* ComposeTweetViewController.swift in Sources */,
 				BBB40B391A91B9520090433A /* LoginViewController.swift in Sources */,
 				BB87ACCE1A93A3AC0087EE4B /* Tweet.swift in Sources */,
 				BB52C6C41A9788070063D111 /* TweetDetailViewController.swift in Sources */,
