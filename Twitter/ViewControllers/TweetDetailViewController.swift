@@ -42,9 +42,10 @@ class TweetDetailViewController: UIViewController {
     }
     
     func updateUI() {
-        var originalUser: User?
-        if let retweetOriginalUser = tweet.retweetedStatus {
-            originalUser = retweetOriginalUser.user
+        var originalTweet: Tweet
+        if let retweetedStatus = tweet.retweetedStatus {
+            originalTweet = retweetedStatus
+            
             retweetUserImageView.image = UIImage(named: "retweet")
             
             if let user = tweet.user {
@@ -52,12 +53,14 @@ class TweetDetailViewController: UIViewController {
             }
             
         } else {
-            originalUser = tweet.user
+            originalTweet = tweet
+            
             retweetUserLabel.text = nil
             retweetUserImageView.image = nil
         }
+
         
-        if let user = originalUser {
+        if let user = originalTweet.user {
             
             userProfileImageView.contentMode = UIViewContentMode.ScaleAspectFit
             
@@ -79,17 +82,17 @@ class TweetDetailViewController: UIViewController {
             userScreennameLabel.text = "@\(user.screenname!)"
         }
         
-        retweetCountLabel.attributedText = attributedStringWithBoldText("\(tweet.retweetCount!)", restOfText: " RETWEETS")
+        retweetCountLabel.attributedText = attributedStringWithBoldText("\(originalTweet.retweetCount!)", restOfText: " RETWEETS")
         
-        favoriteCountLabel.attributedText = attributedStringWithBoldText("\(tweet.favoriteCount!)", restOfText: " FAVORITES")
+        favoriteCountLabel.attributedText = attributedStringWithBoldText("\(originalTweet.favoriteCount!)", restOfText: " FAVORITES")
         
-        if tweet.favorited! {
+        if originalTweet.favorited! {
             favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
         } else {
             favoriteButton.setImage(UIImage(named: "favorite"), forState: .Normal)
         }
         
-        if tweet.retweeted! {
+        if originalTweet.retweeted! {
             retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
         } else {
             retweetButton.setImage(UIImage(named: "retweet"), forState: .Normal)
@@ -98,11 +101,12 @@ class TweetDetailViewController: UIViewController {
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        if let createdAt = tweet.createdAt {
+        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        if let createdAt = originalTweet.createdAt {
             tweetCreatedAtLabel.text = dateFormatter.stringFromDate(createdAt)
         }
         
-        tweetTextLabel.text = tweet.text
+        tweetTextLabel.text = originalTweet.text
     }
     
     func attributedStringWithBoldText(boldText: String, restOfText: String) -> NSAttributedString {

@@ -33,7 +33,7 @@ class TweetsViewController: UIViewController {
         
         navigationItem.title = "Home"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "onLogout")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "New", style: .Plain, target: self, action: "composeNewTweet")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "composeNewTweet")
         
         fetchTweets()
     }

@@ -38,3 +38,4 @@ Credits
 * [BDBOAuth1Manager](https://github.com/bdbergeron/BDBOAuth1Manager)
 * [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
 * [LiceCap](http://www.cockos.com/licecap/)
+* [NSDate-Time-Ago](https://github.com/nikilster/NSDate-Time-Ago)

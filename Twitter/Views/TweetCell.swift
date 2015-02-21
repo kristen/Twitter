@@ -46,9 +46,10 @@ class TweetCell: UITableViewCell {
     func setTweet(tweet: Tweet) {
         self.tweet = tweet
         
-        var originalUser: User?
-        if let retweetOriginalUser = tweet.retweetedStatus {
-            originalUser = retweetOriginalUser.user
+        var originalTweet: Tweet
+        if let retweetedStatus = tweet.retweetedStatus {
+            originalTweet = retweetedStatus
+
             retweetUserImageView.image = UIImage(named: "retweet")
             
             if let user = tweet.user {
@@ -56,12 +57,14 @@ class TweetCell: UITableViewCell {
             }
             
         } else {
-            originalUser = tweet.user
+            originalTweet = tweet
+
             retweetUserLabel.text = nil
             retweetUserImageView.image = nil
+
         }
         
-        if let user = originalUser {
+        if let user = originalTweet.user {
             
             userProfileImageView.contentMode = UIViewContentMode.ScaleAspectFit
             
@@ -84,29 +87,28 @@ class TweetCell: UITableViewCell {
 
         }
         
-        retweetCountLabel.text = "\(tweet.retweetCount!)"
+        retweetCountLabel.text = "\(originalTweet.retweetCount!)"
         
-        favoriteCountLabel.text = "\(tweet.favoriteCount!)"
+        favoriteCountLabel.text = "\(originalTweet.favoriteCount!)"
         
-        if tweet.favorited! {
+        if originalTweet.favorited! {
             favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
         } else {
             favoriteButton.setImage(UIImage(named: "favorite"), forState: .Normal)
         }
         
-        if tweet.retweeted! {
+        if originalTweet.retweeted! {
             retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
         } else {
             retweetButton.setImage(UIImage(named: "retweet"), forState: .Normal)
         }
         
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        if let createdAt = tweet.createdAt {
-            tweetCreatedAtLabel.text = dateFormatter.stringFromDate(createdAt)
+        if let createdAt = originalTweet.createdAt {
+            let timeSinceNowFormatter = TimeSinceNowFormatter()
+            tweetCreatedAtLabel.text = timeSinceNowFormatter.formattedAsTimeAgo(createdAt)
         }
         
-        tweetTextLabel.text = tweet.text
+        tweetTextLabel.text = originalTweet.text
     }
     
     override func layoutSubviews() {
