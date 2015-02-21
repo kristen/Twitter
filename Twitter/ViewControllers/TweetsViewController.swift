@@ -23,7 +23,7 @@ class TweetsViewController: UIViewController {
         
         // UITableViewCell
         tweetsTableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
-        tweetsTableView.estimatedRowHeight = 95
+        tweetsTableView.estimatedRowHeight = 105
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         
         // UIRefreshControl

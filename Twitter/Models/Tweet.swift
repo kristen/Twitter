@@ -17,6 +17,7 @@ class Tweet: NSObject {
     let id: NSNumber?
     let favorited: Bool?
     let retweeted: Bool?
+    let retweetedStatus: Tweet?
     
     init(dictionary: NSDictionary) {
         let json = JSON(dictionary)
@@ -42,10 +43,14 @@ class Tweet: NSObject {
         // TODO: make lazy var
         self.createdAt = formatter.dateFromString(createdAtString)!
         
+        if let retweetedStatusDictionary = dictionary["retweeted_status"] as? NSDictionary {
+            self.retweetedStatus = Tweet(dictionary: retweetedStatusDictionary)
+        }
+        
         super.init()
     }
     
-    class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
+    class func tweetsWithArray(array: [NSDictionary]    ) -> [Tweet] {
         return array.map { Tweet(dictionary: $0) }
     }
 }

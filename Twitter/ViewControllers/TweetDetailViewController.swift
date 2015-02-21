@@ -18,6 +18,8 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var favoriteCountLabel: UILabel!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var retweetUserLabel: UILabel!
+    @IBOutlet weak var retweetUserImageView: UIImageView!
     private var tweet: Tweet!
 
     override func viewDidLoad() {
@@ -40,7 +42,22 @@ class TweetDetailViewController: UIViewController {
     }
     
     func updateUI() {
-        if let user = tweet.user {
+        var originalUser: User?
+        if let retweetOriginalUser = tweet.retweetedStatus {
+            originalUser = retweetOriginalUser.user
+            retweetUserImageView.image = UIImage(named: "retweet")
+            
+            if let user = tweet.user {
+                retweetUserLabel.text = "\(user.name!) retweeted"
+            }
+            
+        } else {
+            originalUser = tweet.user
+            retweetUserLabel.text = nil
+            retweetUserImageView.image = nil
+        }
+        
+        if let user = originalUser {
             
             userProfileImageView.contentMode = UIViewContentMode.ScaleAspectFit
             

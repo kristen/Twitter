@@ -31,6 +31,7 @@ class ComposeTweetViewController: UIViewController {
         if let replyTweetScreenname = replyTweet?.user?.screenname {
             tweetTextView.textColor = UIColor.blackColor()
             tweetTextView.text = "@\(replyTweetScreenname) "
+            tweetTextView.becomeFirstResponder()
         } else {
             placeholderTweetTextView()
         }
