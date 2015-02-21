@@ -28,7 +28,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     func homeTimelineWithParams(params: [String: String]?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation, response) -> Void in
     
-    func tweetWithParams(tweetText: String, additionalParams: [String: String] = [:], completion: (responseObject: NSDictionary?, error: NSError?) -> ()) {
+    func tweetWithParams(tweetText: String, additionalParams: [String: String] = [:], completion: (tweet: Tweet?, error: NSError?) -> ()) {
         
         var params = ["status" : tweetText]
         for (key, value) in additionalParams {
@@ -39,11 +39,57 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
             println("Response from posting new tweet:")
             println(response)
             
-            completion(responseObject: response as? NSDictionary, error: nil)
+            let tweet = Tweet(dictionary: response as NSDictionary )
+            
+            completion(tweet: tweet, error: nil)
             
             }, failure: { (operation, error) -> Void in
                 println("failed to post the tweet!")
-                completion(responseObject: nil, error: error)
+                completion(tweet: nil, error: error)
+        })
+    }
+    
+    func retweet(tweetID: NSNumber, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        POST("1.1/statuses/retweet/\(tweetID).json", parameters: nil, success: { (operation, response) -> Void in
+            println("Response from retweeting tweet:")
+            println(response)
+            
+            let tweet = Tweet(dictionary: response as NSDictionary )
+            
+            completion(tweet: tweet, error: nil)
+            
+            }, failure: { (operation, error) -> Void in
+                println("failed to retweet the tweet!")
+                completion(tweet: nil, error: error)
+        })
+    }
+    
+    func favorite(tweetID: NSNumber, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        POST("1.1/favorites/create.json", parameters: ["id": tweetID], success: { (operation, response) -> Void in
+            println("Response from favoriting tweet:")
+            println(response)
+            
+            let tweet = Tweet(dictionary: response as NSDictionary)
+            
+            completion(tweet: tweet, error: nil)
+            
+            }, failure: { (operation, error) -> Void in
+                println("failed to favorite the tweet!")
+                completion(tweet: nil, error: error)
+        })
+    }
+    
+    func unfavorite(tweetID: NSNumber, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        POST("1.1/favorites/destroy.json", parameters: ["id": tweetID], success: { (operation, response) -> Void in
+            println("Response from unfavoriting tweet:")
+            println(response)
+            
+            let tweet = Tweet(dictionary: response as NSDictionary)
+            completion(tweet: tweet, error: nil)
+            
+            }, failure: { (operation, error) -> Void in
+                println("failed to unfavorite the tweet!")
+                completion(tweet: nil, error: error)
         })
     }
     

@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let twitterBlue = UIColor(red: 102/255.0, green: 167/255.0, blue: 229/255.0, alpha: 1.0)
+    let twitterBlue = UIColor(red: 85/255.0, green: 172/255.0, blue: 238/255.0, alpha: 1.0)
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.

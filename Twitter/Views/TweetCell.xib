@@ -22,26 +22,83 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Kristen Sundquist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6aW-wp-m3x">
-                        <rect key="frame" x="66" y="8" width="109" height="16"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                        <rect key="frame" x="66" y="8" width="111" height="16"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="This is an example tweet!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLD-RB-ylf">
                         <rect key="frame" x="66" y="27" width="341" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="1/28/15" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A29-zi-atd">
-                        <rect key="frame" x="368" y="8" width="47" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <rect key="frame" x="370" y="8" width="45" height="16"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="@ksunkisd" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MyN-Kr-og8">
-                        <rect key="frame" x="179" y="9" width="60" height="15"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <rect key="frame" x="181" y="9" width="58" height="14"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2q-ZQ-9kj">
+                        <rect key="frame" x="66" y="51" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="86k-fo-kRc"/>
+                            <constraint firstAttribute="width" constant="16" id="eSb-3H-zlq"/>
+                        </constraints>
+                        <state key="normal" image="reply">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onReply" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pu7-Og-GxK"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tj-ug-KoV">
+                        <rect key="frame" x="146" y="51" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="fqj-Q5-xH2"/>
+                            <constraint firstAttribute="height" constant="16" id="urY-bu-3ne"/>
+                        </constraints>
+                        <state key="normal" image="retweet">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onRetweet" destination="KGk-i7-Jjw" eventType="touchUpInside" id="4Vk-ya-bFU"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pxz-BK-Czt">
+                        <rect key="frame" x="226" y="50" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="cG2-EB-cqE"/>
+                            <constraint firstAttribute="width" constant="16" id="vAe-mE-wYm"/>
+                        </constraints>
+                        <state key="normal" image="favorite">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onFavorite" destination="KGk-i7-Jjw" eventType="touchUpInside" id="oYt-XF-lCw"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1111" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6e-ib-aYw">
+                        <rect key="frame" x="165" y="53" width="53" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="53" id="dOX-VH-rQK"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1111" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTc-Fn-6zn">
+                        <rect key="frame" x="245" y="53" width="53" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="53" id="Wwg-ZL-IPg"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -52,26 +109,45 @@
                     <constraint firstAttribute="trailingMargin" secondItem="HLD-RB-ylf" secondAttribute="trailing" constant="8" id="6KE-O4-DfC"/>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="L0Q-ha-Thy" secondAttribute="bottom" constant="8" id="82F-ar-e17"/>
                     <constraint firstItem="MyN-Kr-og8" firstAttribute="leading" secondItem="6aW-wp-m3x" secondAttribute="trailing" constant="4" id="Bxg-Jk-SWS"/>
+                    <constraint firstItem="S6e-ib-aYw" firstAttribute="leading" secondItem="5tj-ug-KoV" secondAttribute="trailing" constant="3" id="Cua-Ga-oFb"/>
                     <constraint firstItem="A29-zi-atd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MyN-Kr-og8" secondAttribute="trailing" constant="8" id="FCt-sv-FGA"/>
-                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="HLD-RB-ylf" secondAttribute="bottom" constant="8" id="Mji-NI-hoQ"/>
+                    <constraint firstItem="HLD-RB-ylf" firstAttribute="leading" secondItem="x2q-ZQ-9kj" secondAttribute="leading" id="GFR-Cy-wK9"/>
+                    <constraint firstItem="S6e-ib-aYw" firstAttribute="top" secondItem="HLD-RB-ylf" secondAttribute="bottom" constant="10" id="Ihg-Pu-Lce"/>
                     <constraint firstItem="HLD-RB-ylf" firstAttribute="leading" secondItem="L0Q-ha-Thy" secondAttribute="trailing" constant="8" id="P7u-CA-xas"/>
                     <constraint firstAttribute="trailing" secondItem="A29-zi-atd" secondAttribute="trailing" constant="8" id="Pjy-Ap-sfW"/>
                     <constraint firstItem="L0Q-ha-Thy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="S6j-u9-mbJ"/>
                     <constraint firstItem="L0Q-ha-Thy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="SN4-cv-Gl9"/>
+                    <constraint firstItem="cTc-Fn-6zn" firstAttribute="leading" secondItem="Pxz-BK-Czt" secondAttribute="trailing" constant="3" id="VTF-F5-zXG"/>
+                    <constraint firstItem="Pxz-BK-Czt" firstAttribute="top" secondItem="HLD-RB-ylf" secondAttribute="bottom" constant="7" id="VUx-pM-hlL"/>
                     <constraint firstItem="HLD-RB-ylf" firstAttribute="top" secondItem="6aW-wp-m3x" secondAttribute="bottom" constant="3" id="X8Z-d6-Jty"/>
+                    <constraint firstItem="5tj-ug-KoV" firstAttribute="leading" secondItem="x2q-ZQ-9kj" secondAttribute="trailing" constant="64" id="bSz-iu-dGv"/>
+                    <constraint firstItem="x2q-ZQ-9kj" firstAttribute="top" secondItem="HLD-RB-ylf" secondAttribute="bottom" constant="8" id="cpq-Ia-yWp"/>
                     <constraint firstItem="A29-zi-atd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="eBx-Tf-JF0"/>
+                    <constraint firstItem="Pxz-BK-Czt" firstAttribute="leading" secondItem="S6e-ib-aYw" secondAttribute="trailing" constant="8" id="kan-9q-P3f"/>
+                    <constraint firstItem="cTc-Fn-6zn" firstAttribute="top" secondItem="HLD-RB-ylf" secondAttribute="bottom" constant="10" id="mHV-sE-zL3"/>
                     <constraint firstItem="6aW-wp-m3x" firstAttribute="centerY" secondItem="MyN-Kr-og8" secondAttribute="centerY" id="o5f-6I-ZKb"/>
+                    <constraint firstItem="5tj-ug-KoV" firstAttribute="top" secondItem="HLD-RB-ylf" secondAttribute="bottom" constant="8" id="ru2-h3-TR1"/>
                     <constraint firstItem="6aW-wp-m3x" firstAttribute="leading" secondItem="L0Q-ha-Thy" secondAttribute="trailing" constant="8" id="xki-9C-bsf"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="x2q-ZQ-9kj" secondAttribute="bottom" constant="8" id="yJD-fh-IKc"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="favoriteButton" destination="Pxz-BK-Czt" id="Pne-4I-1EQ"/>
+                <outlet property="favoriteCountLabel" destination="cTc-Fn-6zn" id="Rqa-dU-Voj"/>
+                <outlet property="retweetButton" destination="5tj-ug-KoV" id="5GM-2Q-SWa"/>
+                <outlet property="retweetCountLabel" destination="S6e-ib-aYw" id="BCF-26-q9V"/>
                 <outlet property="tweetCreatedAtLabel" destination="A29-zi-atd" id="aha-hS-OiE"/>
                 <outlet property="tweetTextLabel" destination="HLD-RB-ylf" id="fxt-Sd-lQf"/>
                 <outlet property="userNameLabel" destination="6aW-wp-m3x" id="gGN-ja-FrI"/>
                 <outlet property="userProfileImageView" destination="L0Q-ha-Thy" id="zsK-ua-CpQ"/>
                 <outlet property="userScreennameLabel" destination="MyN-Kr-og8" id="vvm-FQ-RyL"/>
             </connections>
-            <point key="canvasLocation" x="391.5" y="353.5"/>
+            <point key="canvasLocation" x="498.5" y="440.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="favorite" width="16" height="16"/>
+        <image name="reply" width="16" height="16"/>
+        <image name="retweet" width="19" height="16"/>
+    </resources>
 </document>

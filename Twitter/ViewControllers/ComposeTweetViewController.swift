@@ -13,6 +13,7 @@ class ComposeTweetViewController: UIViewController {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userScreennameLabel: UILabel!
     @IBOutlet weak var tweetTextView: UITextView!
+    private var replyTweet: Tweet?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +28,20 @@ class ComposeTweetViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: "onCancel")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Tweet", style: .Plain, target: self, action: "onTweet")
         
-        placeholderTweetTextView()
+        if let replyTweetScreenname = replyTweet?.user?.screenname {
+            tweetTextView.textColor = UIColor.blackColor()
+            tweetTextView.text = "@\(replyTweetScreenname) "
+        } else {
+            placeholderTweetTextView()
+        }
         
         updateUI()
     }
 
+    func setReplyTweet(tweet: Tweet?) {
+        self.replyTweet = tweet
+    }
+    
     func onCancel() {
         // TODO: posibly send notification to make the parent view controller dismiss
         dismissViewControllerAnimated(true, completion: nil)
@@ -40,7 +50,11 @@ class ComposeTweetViewController: UIViewController {
     func onTweet() {
         println("new tweet text")
         println(tweetTextView.text)
-        TwitterClient.sharedInstance.tweetWithParams(tweetTextView.text, completion: { (responseObject, error) -> () in
+        var params: [String: String] = [:]
+        if let replyTweet = replyTweet {
+            params.updateValue("\(replyTweet.id)", forKey: "reply_id")
+        }
+        TwitterClient.sharedInstance.tweetWithParams(tweetTextView.text, additionalParams: params, completion: { (responseObject, error) -> () in
             if responseObject != nil {
                 println(responseObject)
                 // posibly do something to append it to current timeline

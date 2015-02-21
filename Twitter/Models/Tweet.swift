@@ -14,6 +14,9 @@ class Tweet: NSObject {
     let user: User?
     let retweetCount: NSNumber?
     let favoriteCount: NSNumber?
+    let id: NSNumber?
+    let favorited: Bool?
+    let retweeted: Bool?
     
     init(dictionary: NSDictionary) {
         let json = JSON(dictionary)
@@ -25,6 +28,12 @@ class Tweet: NSObject {
         self.retweetCount = json["retweet_count"].numberValue
         
         self.favoriteCount = json["favorite_count"].numberValue
+        
+        self.id = json["id"].numberValue
+        
+        self.favorited = json["favorited"].boolValue
+        
+        self.retweeted = json["retweeted"].boolValue
         
         let createdAtString = json["created_at"].stringValue
         

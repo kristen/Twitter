@@ -16,6 +16,8 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var favoriteCountLabel: UILabel!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
     private var tweet: Tweet!
 
     override func viewDidLoad() {
@@ -64,6 +66,19 @@ class TweetDetailViewController: UIViewController {
         
         favoriteCountLabel.attributedText = attributedStringWithBoldText("\(tweet.favoriteCount!)", restOfText: " FAVORITES")
         
+        if tweet.favorited! {
+            favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
+        } else {
+            favoriteButton.setImage(UIImage(named: "favorite"), forState: .Normal)
+        }
+        
+        if tweet.retweeted! {
+            retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
+        } else {
+            retweetButton.setImage(UIImage(named: "retweet"), forState: .Normal)
+        }
+
+        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         if let createdAt = tweet.createdAt {
@@ -79,5 +94,51 @@ class TweetDetailViewController: UIViewController {
         attributedString.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(13), NSForegroundColorAttributeName: UIColor.blackColor()], range: NSRange(location: 0, length: countElements(boldText)))
         
         return attributedString
+    }
+    
+    @IBAction func onReply() {
+        println("replied")
+        
+        let composeTweetViewController = ComposeTweetViewController(nibName: "ComposeTweetViewController", bundle: nil)
+        composeTweetViewController.setReplyTweet(tweet)
+        navigationController?.presentViewController(UINavigationController(rootViewController: composeTweetViewController), animated: true, completion: nil)
+    }
+    
+    @IBAction func onRetweet() {
+        println("retweeted")
+        
+        TwitterClient.sharedInstance.retweet(tweet.id!, completion: { (tweet, error) -> () in
+            if tweet != nil {
+                self.tweet = tweet
+                self.updateUI()
+            } else {
+                println("error retweeting")
+            }
+        })
+    }
+    
+    @IBAction func onFavorite() {
+        println("favorited")
+        
+        if tweet.favorited! {
+            TwitterClient.sharedInstance.unfavorite(tweet.id!, completion: { (tweet, error) -> () in
+                if tweet != nil {
+                    self.tweet = tweet
+                    self.updateUI()
+                } else {
+                    println("error retweeting")
+                }
+            })
+
+        } else {
+            TwitterClient.sharedInstance.favorite(tweet.id!, completion: { (tweet, error) -> () in
+                if tweet != nil {
+                    self.tweet = tweet
+                    self.updateUI()
+                } else {
+                    println("error retweeting")
+                }
+            })
+        }
     }
 }

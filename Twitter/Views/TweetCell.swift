@@ -8,12 +8,22 @@
 
 import UIKit
 
+protocol TweetCellDelegate: class {
+    func tweetCell(tweetCell: TweetCell, didReplyToTweet replyTweet: Tweet)
+}
+
 class TweetCell: UITableViewCell {
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userScreennameLabel: UILabel!
     @IBOutlet weak var tweetCreatedAtLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var retweetCountLabel: UILabel!
+    @IBOutlet weak var favoriteCountLabel: UILabel!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
+    private var tweet: Tweet!
+    weak var delegate: TweetCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +42,7 @@ class TweetCell: UITableViewCell {
     }
     
     func setTweet(tweet: Tweet) {
+        self.tweet = tweet
         if let user = tweet.user {
             
             userProfileImageView.contentMode = UIViewContentMode.ScaleAspectFit
@@ -55,6 +66,21 @@ class TweetCell: UITableViewCell {
 
         }
         
+        retweetCountLabel.text = "\(tweet.retweetCount!)"
+        
+        favoriteCountLabel.text = "\(tweet.favoriteCount!)"
+        
+        if tweet.favorited! {
+            favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
+        } else {
+            favoriteButton.setImage(UIImage(named: "favorite"), forState: .Normal)
+        }
+        
+        if tweet.retweeted! {
+            retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
+        } else {
+            retweetButton.setImage(UIImage(named: "retweet"), forState: .Normal)
+        }
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
@@ -69,6 +95,50 @@ class TweetCell: UITableViewCell {
         super.layoutSubviews()
         tweetTextLabel.preferredMaxLayoutWidth = tweetTextLabel.frame.size.width
         
+    }
+    
+    @IBAction func onReply() {
+        println("replied")
+        
+        delegate?.tweetCell(self, didReplyToTweet: tweet)
+    }
+    
+    @IBAction func onRetweet() {
+        println("retweeted")
+        
+        TwitterClient.sharedInstance.retweet(tweet.id!, completion: { (tweet, error) -> () in
+            if tweet != nil {
+                
+                self.setTweet(tweet!)
+                
+            } else {
+                println("error retweeting")
+            }
+        })
+    }
+    
+    @IBAction func onFavorite() {
+        println("favorited")
+        
+        if tweet.favorited! {
+            TwitterClient.sharedInstance.unfavorite(tweet.id!, completion: { (tweet, error) -> () in
+                if tweet != nil {
+                    self.setTweet(tweet!)
+                } else {
+                    println("error retweeting")
+                }
+            })
+            
+        } else {
+            TwitterClient.sharedInstance.favorite(tweet.id!, completion: { (tweet, error) -> () in
+                if tweet != nil {
+                    self.setTweet(tweet!)
+                } else {
+                    println("error retweeting")
+                }
+            })
+        }
+
     }
     
 }

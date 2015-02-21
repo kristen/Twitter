@@ -58,7 +58,14 @@ class TweetsViewController: UIViewController {
     }
     
     func composeNewTweet() {
+        composeNewTweet(nil)
+    }
+    
+    func composeNewTweet(replyTweet: Tweet?) {
         let composeTweetViewController = ComposeTweetViewController(nibName: "ComposeTweetViewController", bundle: nil)
+        
+        composeTweetViewController.setReplyTweet(replyTweet)
+        
         navigationController?.presentViewController(UINavigationController(rootViewController: composeTweetViewController), animated: true, completion: nil)
     }
 }
@@ -76,6 +83,7 @@ extension TweetsViewController: UITableViewDataSource {
         let tweetCell = tableView.dequeueReusableCellWithIdentifier("TweetCell") as TweetCell
         
         tweetCell.setTweet(tweets[indexPath.row])
+        tweetCell.delegate = self
         
         return tweetCell
     }
@@ -89,5 +97,11 @@ extension TweetsViewController: UITableViewDelegate {
 
 //        let cell = tableView.cellForRowAtIndexPath(indexPath)
 //        cell?.selectionStyle = .None
+    }
+}
+
+extension TweetsViewController: TweetCellDelegate {
+    func tweetCell(tweetCell: TweetCell, didReplyToTweet replyTweet: Tweet) {
+        composeNewTweet(replyTweet)
     }
 }
