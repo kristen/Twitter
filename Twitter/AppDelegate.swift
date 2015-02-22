@@ -8,11 +8,12 @@
 
 import UIKit
 
+let twitterBlue = UIColor(red: 85/255.0, green: 172/255.0, blue: 238/255.0, alpha: 1.0)
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let twitterBlue = UIColor(red: 85/255.0, green: 172/255.0, blue: 238/255.0, alpha: 1.0)
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -25,9 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         
-        if User.currentUser != nil {
+        if let currentUser = User.currentUser {
             // go to logged in screen
-            println("currentUser detected: \(User.currentUser?.name)")
+            println("currentUser detected: \(currentUser.name!)")
             
             window?.rootViewController = UINavigationController(rootViewController: TweetsViewController(nibName: "TweetsViewController", bundle: nil))
         } else {

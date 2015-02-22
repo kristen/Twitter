@@ -15,7 +15,6 @@ let kTwitterBaseUrl = NSURL(string: "https://api.twitter.com")
 class TwitterClient: BDBOAuth1RequestOperationManager {
     var loginCompletion: ((user: User?, error: NSError?) -> ())?
     
-    // http://stackoverflow.com/questions/24024549/dispatch-once-singleton-model-in-swift
     class var sharedInstance: TwitterClient {
 
         struct Singleton {
@@ -27,6 +26,16 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     
     func homeTimelineWithParams(params: [String: String]?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation, response) -> Void in
+            println(response)
+            
+            let tweets = Tweet.tweetsWithArray(response as [NSDictionary])
+            completion(tweets: tweets, error: nil)
+            
+        }, failure: { (operation, error) -> Void in
+            println("failed to get the home timeline!")
+            completion(tweets: nil, error: error)
+        })
+    }
     
     func tweetWithParams(tweetText: String, additionalParams: [String: String] = [:], completion: (tweet: Tweet?, error: NSError?) -> ()) {
         
@@ -35,61 +44,23 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
             params.updateValue(value, forKey: key)
         }
         
-        POST("1.1/statuses/update.json", parameters: params, success: { (operation, response) -> Void in
-            println("Response from posting new tweet:")
-            println(response)
-            
-            let tweet = Tweet(dictionary: response as NSDictionary )
-            
-            completion(tweet: tweet, error: nil)
-            
-            }, failure: { (operation, error) -> Void in
-                println("failed to post the tweet!")
-                completion(tweet: nil, error: error)
-        })
+        post("1.1/statuses/update.json", withParams: params, completion: completion)
     }
     
     func retweet(tweetID: NSNumber, completion: (tweet: Tweet?, error: NSError?) -> ()) {
-        POST("1.1/statuses/retweet/\(tweetID).json", parameters: nil, success: { (operation, response) -> Void in
-            println("Response from retweeting tweet:")
-            println(response)
-            
-            let tweet = Tweet(dictionary: response as NSDictionary )
-            
-            completion(tweet: tweet, error: nil)
-            
-            }, failure: { (operation, error) -> Void in
-                println("failed to retweet the tweet!")
-                completion(tweet: nil, error: error)
-        })
+        post("1.1/statuses/retweet/\(tweetID).json", withParams: nil, completion: completion)
     }
     
-    func favorite(tweetID: NSNumber, completion: (tweet: Tweet?, error: NSError?) -> ()) {
-        POST("1.1/favorites/create.json", parameters: ["id": tweetID], success: { (operation, response) -> Void in
-            println("Response from favoriting tweet:")
-            println(response)
-            
-            let tweet = Tweet(dictionary: response as NSDictionary)
-            
-            completion(tweet: tweet, error: nil)
-            
-            }, failure: { (operation, error) -> Void in
-                println("failed to favorite the tweet!")
-                completion(tweet: nil, error: error)
-        })
+    func favorite(tweetID: NSNumber, favorite: Bool, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        var favoriteUrlString = favorite ? "1.1/favorites/destroy.json" : "1.1/favorites/create.json"
+        post(favoriteUrlString, withParams: ["id": tweetID], completion: completion)
     }
     
-    func unfavorite(tweetID: NSNumber, completion: (tweet: Tweet?, error: NSError?) -> ()) {
-        POST("1.1/favorites/destroy.json", parameters: ["id": tweetID], success: { (operation, response) -> Void in
-            println("Response from unfavoriting tweet:")
-            println(response)
-            
-            let tweet = Tweet(dictionary: response as NSDictionary)
-            completion(tweet: tweet, error: nil)
-            
-            }, failure: { (operation, error) -> Void in
-                println("failed to unfavorite the tweet!")
-                completion(tweet: nil, error: error)
+    private func post(url: String, withParams params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        POST(url, parameters: params, success: { (operation, response) -> Void in
+            completion(tweet: Tweet(dictionary: response as NSDictionary), error: nil)
+        }, failure: { (operation, error) -> Void in
+            completion(tweet: nil, error: error)
         })
     }
     

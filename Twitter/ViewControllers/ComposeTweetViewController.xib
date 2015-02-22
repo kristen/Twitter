@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ComposeTweetViewController" customModule="Twitter" customModuleProvider="target">
             <connections>
+                <outlet property="characterCountLabel" destination="kU7-S0-9fZ" id="GHG-Tm-d1i"/>
                 <outlet property="tweetTextView" destination="5u3-qE-Cok" id="6tZ-eq-gLe"/>
                 <outlet property="userNameLabel" destination="jGE-0n-zRv" id="q4T-ce-2mI"/>
                 <outlet property="userProfileImageView" destination="vwB-d0-RcL" id="bTF-cd-KvG"/>
@@ -43,14 +44,22 @@
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kU7-S0-9fZ">
+                    <rect key="frame" x="570" y="72" width="22" height="16"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="5u3-qE-Cok" firstAttribute="top" secondItem="vwB-d0-RcL" secondAttribute="bottom" constant="8" id="Ank-11-E5h"/>
+                <constraint firstAttribute="trailing" secondItem="kU7-S0-9fZ" secondAttribute="trailing" constant="8" id="JOM-5b-jaW"/>
                 <constraint firstItem="vwB-d0-RcL" firstAttribute="top" secondItem="jGE-0n-zRv" secondAttribute="top" id="Q9h-vG-oES"/>
                 <constraint firstAttribute="trailing" secondItem="5u3-qE-Cok" secondAttribute="trailing" constant="8" id="Rtc-lL-nLX"/>
                 <constraint firstItem="EPU-4a-bpG" firstAttribute="top" secondItem="jGE-0n-zRv" secondAttribute="bottom" constant="1" id="b80-8F-EYv"/>
                 <constraint firstItem="EPU-4a-bpG" firstAttribute="leading" secondItem="vwB-d0-RcL" secondAttribute="trailing" constant="8" id="jTA-DU-u4t"/>
+                <constraint firstItem="kU7-S0-9fZ" firstAttribute="top" secondItem="vwB-d0-RcL" secondAttribute="top" id="mTu-CV-ymZ"/>
                 <constraint firstItem="5u3-qE-Cok" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="nFi-wc-hOP"/>
                 <constraint firstItem="jGE-0n-zRv" firstAttribute="leading" secondItem="vwB-d0-RcL" secondAttribute="trailing" constant="8" id="q90-aN-UDn"/>
                 <constraint firstItem="vwB-d0-RcL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="72" id="tc1-nN-Vmj"/>

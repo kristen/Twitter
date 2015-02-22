@@ -15,7 +15,7 @@ let HOUR   = (MINUTE * 60)
 let DAY    = (HOUR   * 24)
 let WEEK   = (DAY    * 7)
 let MONTH  = (DAY    * 31)
-let YEAR   = (DAY    * 365.24)
+let YEAR   = (DAY    * 365.25)
 
 class TimeSinceNowFormatter: NSObject {
     
@@ -91,8 +91,4 @@ class TimeSinceNowFormatter: NSObject {
         return dateFormatter.stringFromDate(date)
     }
     
-    
-    /*
-    =======================================================================
-    */
 }

@@ -13,7 +13,9 @@ class ComposeTweetViewController: UIViewController {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userScreennameLabel: UILabel!
     @IBOutlet weak var tweetTextView: UITextView!
+    @IBOutlet weak var characterCountLabel: UILabel!
     private var replyTweet: Tweet?
+    private var placeholderText = "What's happening?"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +27,18 @@ class ComposeTweetViewController: UIViewController {
         userProfileImageView.layer.cornerRadius = 6
         userProfileImageView.clipsToBounds = true
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: "onCancel")
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "onCancel")
+        navigationController?.navigationBar.tintColor = twitterBlue
+        navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Tweet", style: .Plain, target: self, action: "onTweet")
         
         if let replyTweetScreenname = replyTweet?.user?.screenname {
             tweetTextView.textColor = UIColor.blackColor()
             tweetTextView.text = "@\(replyTweetScreenname) "
+            characterCountLabel.text = "\(140 - countElements(tweetTextView.text))"
             tweetTextView.becomeFirstResponder()
         } else {
             placeholderTweetTextView()
@@ -51,41 +59,28 @@ class ComposeTweetViewController: UIViewController {
     func onTweet() {
         println("new tweet text")
         println(tweetTextView.text)
-        var params: [String: String] = [:]
-        if let replyTweet = replyTweet {
-            params.updateValue("\(replyTweet.id)", forKey: "reply_id")
-        }
-        TwitterClient.sharedInstance.tweetWithParams(tweetTextView.text, additionalParams: params, completion: { (responseObject, error) -> () in
-            if responseObject != nil {
-                println(responseObject)
-                // posibly do something to append it to current timeline
-            } else {
-                println("error posting tweet")
+        
+        if countElements(tweetTextView.text) > 0 && tweetTextView.text != placeholderText && tweetTextView.textColor != UIColor.lightGrayColor() {
+            var params: [String: String] = [:]
+            if let replyTweet = replyTweet {
+                params.updateValue("\(replyTweet.id)", forKey: "reply_id")
             }
-        })
-        onCancel()
+            TwitterClient.sharedInstance.tweetWithParams(tweetTextView.text, additionalParams: params, completion: { (responseObject, error) -> () in
+                if responseObject != nil {
+                    println(responseObject)
+                    // posibly do something to append it to current timeline
+                } else {
+                    println("error posting tweet")
+                }
+            })
+            
+            onCancel()
+        }
     }
     
     func updateUI() {
         if let user = User.currentUser {
-            userProfileImageView.contentMode = UIViewContentMode.ScaleAspectFit
-            
-            if let imageURL = user.profileImageUrl {
-                let url = NSURL(string: imageURL)
-                userProfileImageView.setImageWithURLRequest(NSMutableURLRequest(URL: url!), placeholderImage: nil, success: { (request, response, image) -> Void in
-                    self.userProfileImageView.image = image
-                    if (request != nil && response != nil) {
-                        self.userProfileImageView.alpha = 0.0
-                        UIView.animateWithDuration(1.0, animations: { () -> Void in
-                            self.userProfileImageView.alpha = 1.0
-                        })
-                    }
-                    }, failure: nil)
-            }
-            
-            userNameLabel.text = user.name
-            
-            userScreennameLabel.text = "@\(user.screenname!)"
+            TweetViewHelper.setUser(user, forUserProfileImageView: userProfileImageView, userNameLabel: userNameLabel, andScreennameLabel: userScreennameLabel)
         }
     }
     
@@ -107,7 +102,11 @@ extension ComposeTweetViewController: UITextViewDelegate {
     }
     
     func placeholderTweetTextView() {
-        tweetTextView.text = "What's happening?"
+        tweetTextView.text = placeholderText
         tweetTextView.textColor = UIColor.lightGrayColor()
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+        characterCountLabel.text = "\(140 - countElements(textView.text))"
     }
 }

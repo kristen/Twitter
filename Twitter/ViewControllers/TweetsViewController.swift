@@ -94,9 +94,6 @@ extension TweetsViewController: UITableViewDelegate {
         let detailViewController = TweetDetailViewController(nibName: "TweetDetailViewController", bundle: nil)
         detailViewController.setTweet(tweets[indexPath.row])
         navigationController?.pushViewController(detailViewController, animated: true)
-
-//        let cell = tableView.cellForRowAtIndexPath(indexPath)
-//        cell?.selectionStyle = .None
     }
 }
 
