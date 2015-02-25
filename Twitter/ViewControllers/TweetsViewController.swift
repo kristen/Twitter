@@ -10,16 +10,18 @@ import UIKit
 
 class TweetsViewController: UIViewController {
     private var tweets = [Tweet]()
-    @IBOutlet private weak var tweetsTableView: UITableView!
+    @IBOutlet private weak var tweetsTableView: UITableView! {
+        didSet {
+            tweetsTableView.dataSource = self
+            tweetsTableView.delegate = self
+        }
+    }
     private var refreshControl: UIRefreshControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
-        tweetsTableView.dataSource = self
-        tweetsTableView.delegate = self
         
         // UITableViewCell
         tweetsTableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
@@ -100,5 +102,13 @@ extension TweetsViewController: UITableViewDelegate {
 extension TweetsViewController: TweetCellDelegate {
     func tweetCell(tweetCell: TweetCell, didReplyToTweet replyTweet: Tweet) {
         composeNewTweet(replyTweet)
+    }
+    
+    func tweetCell(tweetCell: TweetCell, showProfileForUser user: User?) {
+        println("showed user profile page")
+        
+        let userProfileViewController = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
+        userProfileViewController.setUser(user!)
+        navigationController?.pushViewController(userProfileViewController, animated: true)
     }
 }

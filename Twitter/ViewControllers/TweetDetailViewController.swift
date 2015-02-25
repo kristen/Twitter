@@ -9,7 +9,20 @@
 import UIKit
 
 class TweetDetailViewController: UIViewController {
-    @IBOutlet weak var userProfileImageView: UIImageView!
+    @IBOutlet weak var userProfileImageView: UIImageView! {
+        didSet {
+            userProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "didTapUserProfileImage:"))
+            let recognizer = UITapGestureRecognizer(target: self, action: "didTapUserProfileImage:")
+            recognizer.numberOfTapsRequired = 1
+            recognizer.numberOfTouchesRequired = 1
+            userProfileImageView.addGestureRecognizer(recognizer)
+            userProfileImageView.userInteractionEnabled = true
+            
+            userProfileImageView.layer.cornerRadius = 6
+            userProfileImageView.clipsToBounds = true
+        }
+    }
+
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userScreennameLabel: UILabel!
     @IBOutlet weak var tweetCreatedAtLabel: UILabel!
@@ -28,9 +41,6 @@ class TweetDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         tweetTextLabel.preferredMaxLayoutWidth = tweetTextLabel.frame.size.width
-        
-        userProfileImageView.layer.cornerRadius = 6
-        userProfileImageView.clipsToBounds = true
         
         navigationItem.title = "Tweet"
         
@@ -98,5 +108,13 @@ class TweetDetailViewController: UIViewController {
                 println("error favoriting")
             }
         })
+    }
+    
+    func didTapUserProfileImage(gesture: UITapGestureRecognizer) {
+        println("did tap user profile image on tweet detail view")
+        
+        let userProfileViewController = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
+        userProfileViewController.setUser(TweetViewHelper.getOriginalTweetFrom(tweet).user!)
+        navigationController?.pushViewController(userProfileViewController, animated: true)
     }
 }

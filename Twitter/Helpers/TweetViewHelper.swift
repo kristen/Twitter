@@ -18,6 +18,18 @@ class TweetViewHelper: NSObject {
         userScreennameLabel.text = formattedScreenname(user.screenname!)
 
     }
+    
+    class func getOriginalTweetFrom(tweet: Tweet) -> Tweet {
+        var originalTweet: Tweet
+        if let retweetedStatus = tweet.retweetedStatus {
+            originalTweet = retweetedStatus
+            
+        } else {
+            originalTweet = tweet
+        }
+        return originalTweet
+    }
+
    
     class func getOriginalTweetFrom(tweet: Tweet, updateRetweetUserImage retweetUserImageView: UIImageView, andRetweetUserLabel retweetUserLabel: UILabel) -> Tweet {
         var originalTweet: Tweet

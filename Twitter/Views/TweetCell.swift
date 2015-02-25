@@ -11,10 +11,24 @@ import UIKit
 
 protocol TweetCellDelegate: class {
     func tweetCell(tweetCell: TweetCell, didReplyToTweet replyTweet: Tweet)
+    func tweetCell(tweetCell: TweetCell, showProfileForUser user: User?)
 }
 
 class TweetCell: UITableViewCell {
-    @IBOutlet weak var userProfileImageView: UIImageView!
+    @IBOutlet weak var userProfileImageView: UIImageView! {
+        didSet {
+            userProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "didTapUserProfileImage:"))
+            let recognizer = UITapGestureRecognizer(target: self, action: "didTapUserProfileImage:")
+            recognizer.numberOfTapsRequired = 1
+            recognizer.numberOfTouchesRequired = 1
+            userProfileImageView.addGestureRecognizer(recognizer)
+            userProfileImageView.userInteractionEnabled = true
+            
+            userProfileImageView.layer.cornerRadius = 6
+            userProfileImageView.clipsToBounds = true
+        }
+    }
+    
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userScreennameLabel: UILabel!
     @IBOutlet weak var tweetCreatedAtLabel: UILabel!
@@ -33,9 +47,6 @@ class TweetCell: UITableViewCell {
         // Initialization code
         
         tweetTextLabel.preferredMaxLayoutWidth = tweetTextLabel.frame.size.width
-        
-        userProfileImageView.layer.cornerRadius = 6
-        userProfileImageView.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -106,4 +117,10 @@ class TweetCell: UITableViewCell {
         })
     }
     
+    func didTapUserProfileImage(guesture: UITapGestureRecognizer) {
+        println("did tap user profile image")
+        
+        
+        delegate?.tweetCell(self, showProfileForUser: TweetViewHelper.getOriginalTweetFrom(tweet).user)
+    }
 }
