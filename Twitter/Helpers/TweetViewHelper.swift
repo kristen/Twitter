@@ -56,18 +56,21 @@ class TweetViewHelper: NSObject {
         imageView.contentMode = UIViewContentMode.ScaleAspectFit
         
         if let imageURL = user.profileImageUrl {
-            let url = NSURL(string: imageURL)
-            imageView.setImageWithURLRequest(NSMutableURLRequest(URL: url!), placeholderImage: nil, success: { (request, response, image) -> Void in
-                imageView.image = image
-                if (request != nil && response != nil) {
-                    imageView.alpha = 0.0
-                    UIView.animateWithDuration(1.0, animations: { () -> Void in
-                        imageView.alpha = 1.0
-                    })
-                }
-                }, failure: nil)
+            setImageViewAnimated(imageView, url: NSURL(string: imageURL)!)
         }
 
+    }
+    
+    class func setImageViewAnimated(imageView: UIImageView, url: NSURL) {
+        imageView.setImageWithURLRequest(NSMutableURLRequest(URL: url), placeholderImage: nil, success: { (request, response, image) -> Void in
+            imageView.image = image
+            if (request != nil && response != nil) {
+                imageView.alpha = 0.0
+                UIView.animateWithDuration(1.0, animations: { () -> Void in
+                    imageView.alpha = 1.0
+                })
+            }
+        }, failure: nil)
     }
     
     class func formattedScreenname(screenname: String) -> String {

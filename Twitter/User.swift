@@ -19,6 +19,13 @@ class User: NSObject {
     let screenname: String?
     let profileImageUrl: String?
     let tagline: String?
+    let favoritesCount: NSNumber?
+    let followersCount: NSNumber?
+    let statusesCount: NSNumber?
+    let following: Bool?
+    let location: String?
+    let backgroundImageUrl: String?
+    
     let dictionary: NSDictionary
 
     init(dictionary: NSDictionary) {
@@ -30,6 +37,12 @@ class User: NSObject {
         self.screenname = json["screen_name"].stringValue
         self.profileImageUrl = json["profile_image_url"].stringValue
         self.tagline = json["description"].stringValue
+        self.favoritesCount = json["favourites_count"].numberValue
+        self.followersCount = json["followers_count"].numberValue
+        self.statusesCount = json["statuses_count"].numberValue
+        self.following = json["following"].boolValue
+        self.location = json["location"].stringValue
+        self.backgroundImageUrl = json["profile_background_image_url_https"].stringValue
         
         super.init()
     }
