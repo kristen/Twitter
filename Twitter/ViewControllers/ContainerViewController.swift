@@ -23,9 +23,13 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    var menuOpen = false
+    var menuOpen: Bool = false {
+        didSet {
+            shouldShowShadow(menuOpen)
+        }
+    }
     
-    var menuViewController: MenuViewController?
+    var menuNavigationViewController: UINavigationController?
     
     let tweetsPanelExpandedOffset: CGFloat = 60
 
@@ -47,11 +51,12 @@ extension ContainerViewController : TweetsViewControllerDelegate {
         println("toggle menu")
 
         if !menuOpen {
-            if menuViewController == nil {
-                menuViewController = MenuViewController(nibName: "MenuViewController", bundle: nil)
-                view.insertSubview(menuViewController!.view, atIndex: 0)
-                addChildViewController(menuViewController!)
-                menuViewController!.didMoveToParentViewController(self)
+            if menuNavigationViewController == nil {
+                menuNavigationViewController = UINavigationController(rootViewController: MenuViewController(nibName: "MenuViewController", bundle: nil))
+//                menuViewController!.view.frame = view.frame
+                view.insertSubview(menuNavigationViewController!.view, atIndex: 0)
+                addChildViewController(menuNavigationViewController!)
+                menuNavigationViewController!.didMoveToParentViewController(self)
             }
         }
         
@@ -67,8 +72,8 @@ extension ContainerViewController : TweetsViewControllerDelegate {
             animateTweetPanelXPosition(targetPosition: 0, completion: { (finished) -> Void in
                 self.menuOpen = false
                 
-                self.menuViewController!.view.removeFromSuperview()
-                self.menuViewController = nil
+                self.menuNavigationViewController!.view.removeFromSuperview()
+                self.menuNavigationViewController = nil
             })
         }
     }
@@ -77,5 +82,13 @@ extension ContainerViewController : TweetsViewControllerDelegate {
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.tweetsNavigationController.view.frame.origin.x = targetPosition
         }, completion: completion)
+    }
+    
+    func shouldShowShadow(showShadow: Bool) {
+        if showShadow {
+            tweetsNavigationController.view.layer.shadowOpacity = 0.8
+        } else {
+            tweetsNavigationController.view.layer.shadowOpacity = 0.0
+        }
     }
 }

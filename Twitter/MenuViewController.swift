@@ -23,6 +23,7 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        navigationItem.title = "Menu"
         menuTableView.reloadData()
     }
     
@@ -50,7 +51,7 @@ extension MenuViewController : UITableViewDataSource {
 }
 
 extension MenuViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         menuItems[indexPath.row].onTouch()
     }
 }
