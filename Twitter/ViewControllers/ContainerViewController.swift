@@ -31,7 +31,7 @@ class ContainerViewController: UIViewController {
     
     var menuNavigationViewController: UINavigationController?
     
-    let tweetsPanelExpandedOffset: CGFloat = 60
+    let tweetsPanelExpandedOffset: CGFloat = 100
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,14 +79,14 @@ extension ContainerViewController : TweetsViewControllerDelegate {
     }
     
     func animateTweetPanelXPosition(#targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.tweetsNavigationController.view.frame.origin.x = targetPosition
         }, completion: completion)
     }
     
     func shouldShowShadow(showShadow: Bool) {
         if showShadow {
-            tweetsNavigationController.view.layer.shadowOpacity = 0.8
+            tweetsNavigationController.view.layer.shadowOpacity = 0.6
         } else {
             tweetsNavigationController.view.layer.shadowOpacity = 0.0
         }

@@ -23,7 +23,7 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        navigationItem.title = "Menu"
+        
         menuTableView.reloadData()
     }
     
