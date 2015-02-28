@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // go to logged in screen
             println("currentUser detected: \(currentUser.name!)")
             
-            window?.rootViewController = UINavigationController(rootViewController: TweetsViewController(nibName: "TweetsViewController", bundle: nil))
+            window?.rootViewController = ContainerViewController()
         } else {
             window?.rootViewController = UINavigationController(rootViewController: LoginViewController(nibName: "LoginViewController", bundle: nil))
         }

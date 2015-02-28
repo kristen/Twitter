@@ -29,6 +29,7 @@
 		BBBACE411A94539D007040B9 /* TweetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBBACE3F1A94539D007040B9 /* TweetsViewController.xib */; };
 		BBBACE451A9467F5007040B9 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBACE431A9467F5007040B9 /* TweetCell.swift */; };
 		BBBACE461A9467F5007040B9 /* TweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBBACE441A9467F5007040B9 /* TweetCell.xib */; };
+		BBDA67251AA1780B00AD84E2 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDA67241AA1780B00AD84E2 /* ContainerViewController.swift */; };
 		CFEA19FDDFC41BB1FAAB6B49 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C74FFBF4E56E8D280EFEC65 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		BBBACE3F1A94539D007040B9 /* TweetsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TweetsViewController.xib; path = ViewControllers/TweetsViewController.xib; sourceTree = "<group>"; };
 		BBBACE431A9467F5007040B9 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweetCell.swift; path = Views/TweetCell.swift; sourceTree = "<group>"; };
 		BBBACE441A9467F5007040B9 /* TweetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TweetCell.xib; path = Views/TweetCell.xib; sourceTree = "<group>"; };
+		BBDA67241AA1780B00AD84E2 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContainerViewController.swift; path = ViewControllers/ContainerViewController.swift; sourceTree = "<group>"; };
 		E378F531E8682C0F45043C57 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,6 +198,7 @@
 				BB51D7D61A97A3D9004CAAEF /* ComposeTweetViewController.xib */,
 				BB05DAA31A9D837400D820C0 /* UserProfileViewController.swift */,
 				BB05DAA41A9D837400D820C0 /* UserProfileViewController.xib */,
+				BBDA67241AA1780B00AD84E2 /* ContainerViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 			files = (
 				BB30D08B1A9906C30020F32A /* TweetViewHelper.swift in Sources */,
 				BB51D7D71A97A3D9004CAAEF /* ComposeTweetViewController.swift in Sources */,
+				BBDA67251AA1780B00AD84E2 /* ContainerViewController.swift in Sources */,
 				BBB8967C1A9849BD0048B3A8 /* TimeSinceNowFormatter.swift in Sources */,
 				BBB40B391A91B9520090433A /* LoginViewController.swift in Sources */,
 				BB87ACCE1A93A3AC0087EE4B /* Tweet.swift in Sources */,

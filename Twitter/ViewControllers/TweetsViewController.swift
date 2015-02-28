@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TweetsViewControllerDelegate : class {
+    func toggleMenu()
+}
+
 class TweetsViewController: UIViewController {
     private var tweets = [Tweet]()
     @IBOutlet private weak var tweetsTableView: UITableView! {
@@ -17,6 +21,8 @@ class TweetsViewController: UIViewController {
         }
     }
     private var refreshControl: UIRefreshControl!
+
+    var delegate: TweetsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
