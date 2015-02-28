@@ -22,7 +22,7 @@ class TweetsViewController: UIViewController {
     }
     private var refreshControl: UIRefreshControl!
 
-    var delegate: TweetsViewControllerDelegate?
+    weak var delegate: TweetsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,9 @@ class TweetsViewController: UIViewController {
         tweetsTableView.insertSubview(refreshControl, atIndex: 0)
         
         navigationItem.title = "Home"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "onLogout")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "composeNewTweet")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action: "onToggleMenu")
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewTweet")
         
         fetchTweets()
     }
@@ -61,8 +62,8 @@ class TweetsViewController: UIViewController {
         })
     }
     
-    func onLogout() {
-        User.currentUser?.logout()
+    func onToggleMenu() {
+        delegate?.toggleMenu()
     }
     
     func composeNewTweet() {

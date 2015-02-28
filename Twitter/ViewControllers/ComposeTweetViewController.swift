@@ -28,7 +28,7 @@ class ComposeTweetViewController: UIViewController {
         userProfileImageView.clipsToBounds = true
         
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "onCancel")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: "onCancel")
         navigationController?.navigationBar.tintColor = twitterBlue
         navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
 
