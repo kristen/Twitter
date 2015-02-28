@@ -26,6 +26,7 @@ class ContainerViewController: UIViewController {
     var menuOpen: Bool = false {
         didSet {
             shouldShowShadow(menuOpen)
+            tweetsViewController.view.userInteractionEnabled = !menuOpen
         }
     }
     
@@ -41,7 +42,8 @@ class ContainerViewController: UIViewController {
         tweetsViewController = TweetsViewController(nibName: "TweetsViewController", bundle: nil)
         
         tweetsNavigationController = UINavigationController(rootViewController: tweetsViewController)
-        
+
+        tweetsNavigationController.view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "onPan:"))
     }
     
 }
@@ -51,16 +53,19 @@ extension ContainerViewController : TweetsViewControllerDelegate {
         println("toggle menu")
 
         if !menuOpen {
-            if menuNavigationViewController == nil {
-                menuNavigationViewController = UINavigationController(rootViewController: MenuViewController(nibName: "MenuViewController", bundle: nil))
-//                menuViewController!.view.frame = view.frame
-                view.insertSubview(menuNavigationViewController!.view, atIndex: 0)
-                addChildViewController(menuNavigationViewController!)
-                menuNavigationViewController!.didMoveToParentViewController(self)
-            }
+            addMenuViewController()
         }
         
         animateMenu(shouldExpand: !menuOpen)
+    }
+    
+    func addMenuViewController() {
+        if menuNavigationViewController == nil {
+            menuNavigationViewController = UINavigationController(rootViewController: MenuViewController(nibName: "MenuViewController", bundle: nil))
+            view.insertSubview(menuNavigationViewController!.view, atIndex: 0)
+            addChildViewController(menuNavigationViewController!)
+            menuNavigationViewController!.didMoveToParentViewController(self)
+        }
     }
     
     func animateMenu(#shouldExpand: Bool) {
@@ -89,6 +94,33 @@ extension ContainerViewController : TweetsViewControllerDelegate {
             tweetsNavigationController.view.layer.shadowOpacity = 0.6
         } else {
             tweetsNavigationController.view.layer.shadowOpacity = 0.0
+        }
+    }
+}
+
+extension ContainerViewController : UIGestureRecognizerDelegate {
+    func onPan(guesture: UIPanGestureRecognizer) {
+        let guestureDragedFromLeftToRight = guesture.velocityInView(view).x > 0
+        
+        switch guesture.state {
+        case .Began:
+            if !menuOpen && guestureDragedFromLeftToRight {
+                addMenuViewController()
+                shouldShowShadow(true)
+            }
+        case .Changed:
+            if !menuOpen && guestureDragedFromLeftToRight || menuOpen && !guestureDragedFromLeftToRight {
+                guesture.view!.center.x += guesture.translationInView(view).x
+                guesture.setTranslation(CGPointZero, inView: view)
+            }
+        case .Ended:
+            if menuNavigationViewController != nil {
+                let hasMovedGreaterThanHalfWay = guesture.view!.center.x > view.bounds.size.width
+                animateMenu(shouldExpand: hasMovedGreaterThanHalfWay)
+            }
+        case .Failed: fallthrough
+        case .Cancelled: fallthrough
+        case .Possible: break
         }
     }
 }
