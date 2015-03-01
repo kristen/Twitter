@@ -13,9 +13,9 @@ protocol MenuViewControllerDelegate : class {
 }
 
 enum MenuItem: Int {
-    case UserProfile = 0, Timeline, Logout
+    case UserProfile = 0, Timeline, Mentions, Logout
     
-    static let count = 3
+    static let count = 4
 }
 
 class MenuViewController: UIViewController {
@@ -62,6 +62,12 @@ extension MenuViewController : UITableViewDataSource {
             cell.textLabel?.text = "Timeline"
             
             return cell
+        case MenuItem.Mentions.rawValue:
+            let cell = UITableViewCell()
+            
+            cell.textLabel?.text = "Mentions"
+            
+            return cell
         case MenuItem.Logout.rawValue:
             let cell = UITableViewCell()
             
@@ -93,6 +99,10 @@ extension MenuViewController : UITableViewDelegate {
             let tweetsViewController = TweetsViewController(nibName: "TweetsViewController", bundle: nil)
             
             delegate?.didSelectMenuItem(self, forNewMainViewController: tweetsViewController)
+        case MenuItem.Mentions.rawValue:
+            let mentionsViewController = MentionsViewController(nibName: "TweetsViewController", bundle: nil)
+            
+            delegate?.didSelectMenuItem(self, forNewMainViewController: mentionsViewController)
             
         case MenuItem.Logout.rawValue:
             

@@ -9,14 +9,14 @@
 import UIKit
 
 class TweetsViewController: MainViewController {
-    private var tweets = [Tweet]()
-    @IBOutlet private weak var tweetsTableView: UITableView! {
+    internal var tweets = [Tweet]()
+    @IBOutlet internal weak var tweetsTableView: UITableView! {
         didSet {
             tweetsTableView.dataSource = self
             tweetsTableView.delegate = self
         }
     }
-    private var refreshControl: UIRefreshControl!
+    internal var refreshControl: UIRefreshControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
