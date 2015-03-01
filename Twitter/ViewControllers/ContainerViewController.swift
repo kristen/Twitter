@@ -12,9 +12,10 @@ class ContainerViewController: UIViewController {
     
     var mainNavigationController: UINavigationController! {
         didSet {
-            view.addSubview(mainNavigationController.view)
             addChildViewController(mainNavigationController)
+            view.addSubview(mainNavigationController.view)
             mainNavigationController.didMoveToParentViewController(self)
+            
             mainNavigationController.view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "onPan:"))
         }
     }
@@ -40,6 +41,7 @@ class ContainerViewController: UIViewController {
         mainViewController = TweetsViewController(nibName: "TweetsViewController", bundle: nil)
         
         mainNavigationController = UINavigationController(rootViewController: mainViewController)
+        
         mainViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action: "toggleMenu")
     }
 
@@ -55,11 +57,14 @@ class ContainerViewController: UIViewController {
     
     func addMenuViewController() {
         if menuNavigationViewController == nil {
+            
             let menuViewController = MenuViewController(nibName: "MenuViewController", bundle: nil)
             menuViewController.delegate = self
+            
             menuNavigationViewController = UINavigationController(rootViewController: menuViewController)
-            view.insertSubview(menuNavigationViewController!.view, atIndex: 0)
+            
             addChildViewController(menuNavigationViewController!)
+            view.insertSubview(menuNavigationViewController!.view, atIndex: 0)
             menuNavigationViewController!.didMoveToParentViewController(self)
         }
     }
@@ -123,28 +128,20 @@ extension ContainerViewController : UIGestureRecognizerDelegate {
 
 extension ContainerViewController : MenuViewControllerDelegate {
     func didSelectMenuItem(menuViewController: MenuViewController, forNewMainViewController newMainViewController: MainViewController) {
-        
 
-            // remove last mainViewController
-//            self.mainNavigationController!.view.removeFromSuperview()
-            
-            // set new one
-//            self.mainViewController = mainViewController
-//            mainNavigationController = UINavigationController(rootViewController: newMainViewController)
-            
-            // bad, .view = .view is crashing UIViewControllerHierarchyInconsistency
-//            self.mainViewController = newMainViewController
-//            self.mainNavigationController!.view = newMainViewController.view
-            
-            
-            
-            // works
-
-            newMainViewController.view.frame = self.mainViewController.view.frame
-            self.mainViewController.view.addSubview(newMainViewController.view)
-
+        let oldCenter = mainNavigationController.view.center
+        removeCurrentMainViewController()
+        self.mainViewController = newMainViewController
+        mainNavigationController = UINavigationController(rootViewController: newMainViewController)
+        mainNavigationController.view.center = oldCenter
 
         
         animateMenu(shouldExpand: false)
+    }
+    
+    func removeCurrentMainViewController() {
+        mainNavigationController.willMoveToParentViewController(nil)
+        mainNavigationController.view.removeFromSuperview()
+        mainNavigationController.didMoveToParentViewController(nil)
     }
 }

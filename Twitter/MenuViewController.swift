@@ -13,9 +13,9 @@ protocol MenuViewControllerDelegate : class {
 }
 
 enum MenuItem: Int {
-    case UserProfile = 0, Logout
+    case UserProfile = 0, Timeline, Logout
     
-    static let count = 2
+    static let count = 3
 }
 
 class MenuViewController: UIViewController {
@@ -56,6 +56,12 @@ extension MenuViewController : UITableViewDataSource {
         switch indexPath.row {
         case MenuItem.UserProfile.rawValue:
             return tableView.dequeueReusableCellWithIdentifier("ProfileCell") as ProfileCell
+        case MenuItem.Timeline.rawValue:
+            let cell = UITableViewCell()
+            
+            cell.textLabel?.text = "Timeline"
+            
+            return cell
         case MenuItem.Logout.rawValue:
             let cell = UITableViewCell()
             
@@ -82,6 +88,12 @@ extension MenuViewController : UITableViewDelegate {
             userProfileViewController.setUser(User.currentUser!)
             
             delegate?.didSelectMenuItem(self, forNewMainViewController: userProfileViewController)
+            
+        case MenuItem.Timeline.rawValue:
+            let tweetsViewController = TweetsViewController(nibName: "TweetsViewController", bundle: nil)
+            
+            delegate?.didSelectMenuItem(self, forNewMainViewController: tweetsViewController)
+            
         case MenuItem.Logout.rawValue:
             
             let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
@@ -89,6 +101,7 @@ extension MenuViewController : UITableViewDelegate {
             delegate?.didSelectMenuItem(self, forNewMainViewController: loginViewController)
             
             logout()
+
         default:
             break
         }
