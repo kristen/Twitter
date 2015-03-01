@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileViewController: UIViewController {
+class UserProfileViewController: MainViewController {
     private var user: User!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var userProfileImageView: UIImageView! {

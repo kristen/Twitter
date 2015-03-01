@@ -22,7 +22,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Kristen Sundquist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6aW-wp-m3x">
-                        <rect key="frame" x="66" y="30" width="110.5" height="15.5"/>
+                        <rect key="frame" x="66" y="30" width="111" height="16"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -34,7 +34,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="4m" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A29-zi-atd">
-                        <rect key="frame" x="396" y="30" width="18.5" height="15.5"/>
+                        <rect key="frame" x="396" y="30" width="19" height="16"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -46,7 +46,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2q-ZQ-9kj">
-                        <rect key="frame" x="66" y="73" width="22" height="22"/>
+                        <rect key="frame" x="66" y="72" width="22" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="We8-Ub-hV5"/>
                             <constraint firstAttribute="width" constant="22" id="YsI-zh-fio"/>
@@ -59,7 +59,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tj-ug-KoV">
-                        <rect key="frame" x="136" y="73" width="22" height="22"/>
+                        <rect key="frame" x="136" y="72" width="22" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="22" id="bqj-QZ-OrM"/>
                             <constraint firstAttribute="height" constant="22" id="olT-fW-hiK"/>
@@ -72,7 +72,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pxz-BK-Czt">
-                        <rect key="frame" x="223" y="72" width="22" height="22"/>
+                        <rect key="frame" x="223" y="71" width="22" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="22" id="KAm-oL-EaN"/>
                             <constraint firstAttribute="height" constant="22" id="hNc-GH-VES"/>
@@ -85,7 +85,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1111" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTc-Fn-6zn">
-                        <rect key="frame" x="249" y="76" width="27" height="14"/>
+                        <rect key="frame" x="249" y="75" width="27" height="14"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -104,7 +104,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1111" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6e-ib-aYw">
-                        <rect key="frame" x="162" y="77" width="53" height="14"/>
+                        <rect key="frame" x="162" y="76" width="53" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="53" id="w7b-VH-98U"/>
                         </constraints>

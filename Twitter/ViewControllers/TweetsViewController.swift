@@ -8,11 +8,7 @@
 
 import UIKit
 
-protocol TweetsViewControllerDelegate : class {
-    func toggleMenu()
-}
-
-class TweetsViewController: UIViewController {
+class TweetsViewController: MainViewController {
     private var tweets = [Tweet]()
     @IBOutlet private weak var tweetsTableView: UITableView! {
         didSet {
@@ -21,8 +17,6 @@ class TweetsViewController: UIViewController {
         }
     }
     private var refreshControl: UIRefreshControl!
-
-    weak var delegate: TweetsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,14 +34,12 @@ class TweetsViewController: UIViewController {
         tweetsTableView.insertSubview(refreshControl, atIndex: 0)
         
         navigationItem.title = "Home"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action: "onToggleMenu")
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewTweet")
         
         fetchTweets()
     }
 
-    
     func fetchTweets() {
         MBProgressHUD.showHUDAddedTo(view, animated: true)
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweetsOptional, error) -> () in
@@ -60,10 +52,6 @@ class TweetsViewController: UIViewController {
             }
             MBProgressHUD.hideHUDForView(self.view, animated: true)
         })
-    }
-    
-    func onToggleMenu() {
-        delegate?.toggleMenu()
     }
     
     func composeNewTweet() {

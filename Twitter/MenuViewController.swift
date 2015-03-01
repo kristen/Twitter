@@ -8,7 +8,19 @@
 
 import UIKit
 
+protocol MenuViewControllerDelegate : class {
+    func didSelectMenuItem(menuViewController: MenuViewController, forNewMainViewController newMainViewController: MainViewController)
+}
+
+enum MenuItem: Int {
+    case UserProfile = 0, Logout
+    
+    static let count = 2
+}
+
 class MenuViewController: UIViewController {
+    
+    weak var delegate: MenuViewControllerDelegate?
 
     @IBOutlet weak var menuTableView: UITableView! {
         didSet {
@@ -16,19 +28,17 @@ class MenuViewController: UIViewController {
             menuTableView.delegate = self
         }
     }
-    
-    var menuItems : [MenuItem] = [MenuItem(label: "Logout", onTouch: User.currentUser!.logout)]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         menuTableView.reloadData()
+        menuTableView.registerNib(UINib(nibName: "ProfileCell", bundle: nil), forCellReuseIdentifier: "ProfileCell")
     }
     
-
-    func onLogout() {
+    func logout() {
         User.currentUser?.logout()
     }
 }
@@ -39,29 +49,48 @@ extension MenuViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuItems.count
+        return MenuItem.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = menuItems[indexPath.row].label
-        
-        return cell
+        switch indexPath.row {
+        case MenuItem.UserProfile.rawValue:
+            return tableView.dequeueReusableCellWithIdentifier("ProfileCell") as ProfileCell
+        case MenuItem.Logout.rawValue:
+            let cell = UITableViewCell()
+            
+            cell.textLabel?.text = "Logout"
+            
+            return cell
+        default:
+            let cell = UITableViewCell()
+            
+            cell.textLabel?.text = "Missing Cell for indexPath.row = \(indexPath.row)"
+            
+            return cell
+        }
     }
 }
 
 extension MenuViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        menuItems[indexPath.row].onTouch()
-    }
-}
-
-class MenuItem: NSObject {
-    var label: String
-    var onTouch: () -> Void
-    
-    init(label: String, onTouch: () -> Void) {
-        self.label = label
-        self.onTouch = onTouch
+        
+        switch indexPath.row {
+        case MenuItem.UserProfile.rawValue:
+            let userProfileViewController = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
+            
+            userProfileViewController.setUser(User.currentUser!)
+            
+            delegate?.didSelectMenuItem(self, forNewMainViewController: userProfileViewController)
+        case MenuItem.Logout.rawValue:
+            
+            let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+            
+            delegate?.didSelectMenuItem(self, forNewMainViewController: loginViewController)
+            
+            logout()
+        default:
+            break
+        }
     }
 }

@@ -10,45 +10,39 @@ import UIKit
 
 class ContainerViewController: UIViewController {
     
-    var tweetsNavigationController: UINavigationController! {
+    var mainNavigationController: UINavigationController! {
         didSet {
-            view.addSubview(tweetsNavigationController.view)
-            addChildViewController(tweetsNavigationController)
-            tweetsNavigationController.didMoveToParentViewController(self)
+            view.addSubview(mainNavigationController.view)
+            addChildViewController(mainNavigationController)
+            mainNavigationController.didMoveToParentViewController(self)
+            mainNavigationController.view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "onPan:"))
         }
     }
-    var tweetsViewController: TweetsViewController! {
-        didSet {
-            tweetsViewController.delegate = self
-        }
-    }
+    var mainViewController: MainViewController!
     
     var menuOpen: Bool = false {
         didSet {
             shouldShowShadow(menuOpen)
-            tweetsViewController.view.userInteractionEnabled = !menuOpen
+            mainViewController.view.userInteractionEnabled = !menuOpen
+            mainViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action: "toggleMenu")
         }
     }
     
     var menuNavigationViewController: UINavigationController?
     
-    let tweetsPanelExpandedOffset: CGFloat = 100
+    let mainPanelExpandedOffset: CGFloat = 100
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        tweetsViewController = TweetsViewController(nibName: "TweetsViewController", bundle: nil)
+        mainViewController = TweetsViewController(nibName: "TweetsViewController", bundle: nil)
         
-        tweetsNavigationController = UINavigationController(rootViewController: tweetsViewController)
-
-        tweetsNavigationController.view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "onPan:"))
+        mainNavigationController = UINavigationController(rootViewController: mainViewController)
+        mainViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .Plain, target: self, action: "toggleMenu")
     }
-    
-}
 
-extension ContainerViewController : TweetsViewControllerDelegate {
     func toggleMenu() {
         println("toggle menu")
 
@@ -61,7 +55,9 @@ extension ContainerViewController : TweetsViewControllerDelegate {
     
     func addMenuViewController() {
         if menuNavigationViewController == nil {
-            menuNavigationViewController = UINavigationController(rootViewController: MenuViewController(nibName: "MenuViewController", bundle: nil))
+            let menuViewController = MenuViewController(nibName: "MenuViewController", bundle: nil)
+            menuViewController.delegate = self
+            menuNavigationViewController = UINavigationController(rootViewController: menuViewController)
             view.insertSubview(menuNavigationViewController!.view, atIndex: 0)
             addChildViewController(menuNavigationViewController!)
             menuNavigationViewController!.didMoveToParentViewController(self)
@@ -72,7 +68,7 @@ extension ContainerViewController : TweetsViewControllerDelegate {
         if shouldExpand {
             menuOpen = true
             
-            animateTweetPanelXPosition(targetPosition: CGRectGetWidth(tweetsNavigationController.view.frame) - tweetsPanelExpandedOffset)
+            animateTweetPanelXPosition(targetPosition: CGRectGetWidth(mainNavigationController.view.frame) - mainPanelExpandedOffset)
         } else {
             animateTweetPanelXPosition(targetPosition: 0, completion: { (finished) -> Void in
                 self.menuOpen = false
@@ -85,15 +81,15 @@ extension ContainerViewController : TweetsViewControllerDelegate {
     
     func animateTweetPanelXPosition(#targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
         UIView.animateWithDuration(0.2, animations: { () -> Void in
-            self.tweetsNavigationController.view.frame.origin.x = targetPosition
+            self.mainNavigationController.view.frame.origin.x = targetPosition
         }, completion: completion)
     }
     
     func shouldShowShadow(showShadow: Bool) {
         if showShadow {
-            tweetsNavigationController.view.layer.shadowOpacity = 0.6
+            mainNavigationController.view.layer.shadowOpacity = 0.6
         } else {
-            tweetsNavigationController.view.layer.shadowOpacity = 0.0
+            mainNavigationController.view.layer.shadowOpacity = 0.0
         }
     }
 }
@@ -122,5 +118,33 @@ extension ContainerViewController : UIGestureRecognizerDelegate {
         case .Cancelled: fallthrough
         case .Possible: break
         }
+    }
+}
+
+extension ContainerViewController : MenuViewControllerDelegate {
+    func didSelectMenuItem(menuViewController: MenuViewController, forNewMainViewController newMainViewController: MainViewController) {
+        
+
+            // remove last mainViewController
+//            self.mainNavigationController!.view.removeFromSuperview()
+            
+            // set new one
+//            self.mainViewController = mainViewController
+//            mainNavigationController = UINavigationController(rootViewController: newMainViewController)
+            
+            // bad, .view = .view is crashing UIViewControllerHierarchyInconsistency
+//            self.mainViewController = newMainViewController
+//            self.mainNavigationController!.view = newMainViewController.view
+            
+            
+            
+            // works
+
+            newMainViewController.view.frame = self.mainViewController.view.frame
+            self.mainViewController.view.addSubview(newMainViewController.view)
+
+
+        
+        animateMenu(shouldExpand: false)
     }
 }
