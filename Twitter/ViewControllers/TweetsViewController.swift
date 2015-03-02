@@ -60,7 +60,7 @@ class TweetsViewController: MainViewController {
     
     func composeNewTweet(replyTweet: Tweet?) {
         let composeTweetViewController = ComposeTweetViewController(nibName: "ComposeTweetViewController", bundle: nil)
-        
+        composeTweetViewController.delegate = self
         composeTweetViewController.setReplyTweet(replyTweet)
         
         navigationController?.presentViewController(UINavigationController(rootViewController: composeTweetViewController), animated: true, completion: nil)
@@ -105,5 +105,12 @@ extension TweetsViewController: TweetCellDelegate {
         let userProfileViewController = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
         userProfileViewController.setUser(user!)
         navigationController?.pushViewController(userProfileViewController, animated: true)
+    }
+}
+
+extension TweetsViewController: ComposeTweetViewControllerDelegate {
+    func composeTweetViewController(composeTweetViewController: ComposeTweetViewController, didTweet tweet: Tweet) {
+        self.tweets.insert(tweet, atIndex: 0)
+        tweetsTableView.reloadData()
     }
 }

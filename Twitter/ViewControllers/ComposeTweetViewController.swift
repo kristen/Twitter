@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ComposeTweetViewControllerDelegate : class {
+    func composeTweetViewController(composeTweetViewController: ComposeTweetViewController, didTweet tweet: Tweet)
+}
+
 class ComposeTweetViewController: UIViewController {
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -15,6 +19,7 @@ class ComposeTweetViewController: UIViewController {
     @IBOutlet weak var tweetTextView: UITextView!
     @IBOutlet weak var characterCountLabel: UILabel!
     private var replyTweet: Tweet?
+    weak var delegate: ComposeTweetViewControllerDelegate?
     private var placeholderText = "What's happening?"
 
     override func viewDidLoad() {
@@ -65,10 +70,11 @@ class ComposeTweetViewController: UIViewController {
             if let replyTweet = replyTweet {
                 params.updateValue("\(replyTweet.id)", forKey: "reply_id")
             }
-            TwitterClient.sharedInstance.tweetWithParams(tweetTextView.text, additionalParams: params, completion: { (responseObject, error) -> () in
-                if responseObject != nil {
-                    println(responseObject)
+            TwitterClient.sharedInstance.tweetWithParams(tweetTextView.text, additionalParams: params, completion: { (tweet, error) -> () in
+                if let tweet = tweet {
+                    println(tweet)
                     // posibly do something to append it to current timeline
+                    self.delegate?.composeTweetViewController(self, didTweet: tweet)
                 } else {
                     println("error posting tweet")
                 }
