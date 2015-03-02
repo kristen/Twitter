@@ -32,7 +32,7 @@ Time spent: 14
 
 ## Twitter Redux
 
-Time spent: `<Number of hours spent>`
+Time spent: 14
 
 ### Features
 
