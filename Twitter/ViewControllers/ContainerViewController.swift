@@ -33,6 +33,8 @@ class ContainerViewController: UIViewController {
     
     let mainPanelExpandedOffset: CGFloat = 100
 
+    var originalCenterOfMainView: CGFloat = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -100,23 +102,32 @@ class ContainerViewController: UIViewController {
 }
 
 extension ContainerViewController : UIGestureRecognizerDelegate {
-    func onPan(guesture: UIPanGestureRecognizer) {
-        let guestureDragedFromLeftToRight = guesture.velocityInView(view).x > 0
+    func onPan(gesture: UIPanGestureRecognizer) {
         
-        switch guesture.state {
+        switch gesture.state {
+            
         case .Began:
-            if !menuOpen && guestureDragedFromLeftToRight {
-                addMenuViewController()
-                shouldShowShadow(true)
-            }
+            addMenuViewController()
+            shouldShowShadow(true)
+            originalCenterOfMainView = mainNavigationController.view.center.x
+            
         case .Changed:
-            if !menuOpen && guestureDragedFromLeftToRight || menuOpen && !guestureDragedFromLeftToRight {
-                guesture.view!.center.x += guesture.translationInView(view).x
-                guesture.setTranslation(CGPointZero, inView: view)
+            let translation = gesture.translationInView(mainNavigationController.view.superview!).x
+            
+            mainNavigationController.view.center.x = originalCenterOfMainView + translation
+            
+            if menuOpen {
+                if mainNavigationController.view.center.x < mainNavigationController.view.frame.width/2 {
+                    mainNavigationController.view.center.x = mainNavigationController.view.frame.width/2
+                }
+            } else {
+                if mainNavigationController.view.center.x <= originalCenterOfMainView {
+                    mainNavigationController.view.center.x = originalCenterOfMainView
+                }
             }
         case .Ended:
             if menuNavigationViewController != nil {
-                let hasMovedGreaterThanHalfWay = guesture.view!.center.x > view.bounds.size.width
+                let hasMovedGreaterThanHalfWay = gesture.view!.center.x > view.bounds.size.width
                 animateMenu(shouldExpand: hasMovedGreaterThanHalfWay)
             }
         case .Failed: fallthrough
@@ -134,7 +145,6 @@ extension ContainerViewController : MenuViewControllerDelegate {
         self.mainViewController = newMainViewController
         mainNavigationController = UINavigationController(rootViewController: newMainViewController)
         mainNavigationController.view.center = oldCenter
-
         
         animateMenu(shouldExpand: false)
     }
